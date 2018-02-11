@@ -5,16 +5,16 @@
 
 body {
 	font-family: 'Source Sans Pro', sans-serif;
-	background: url(../images/background.png) center 125px;
+	background: url(../images/background.png) center 10vh;
 	text-align: center;
 	line-height: 1.2;
 	color: #bcbcbc;
-	padding: 16px;
+	padding: 0 16px 32px;
 }
 
 #logo {
 	display: block;
-	margin: 125px auto;
+	margin: 10vh auto 48px;
 	background: url(../images/cut-background.png) fixed;
 	max-width: 90%;
 }
