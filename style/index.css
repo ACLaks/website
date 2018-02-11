@@ -4,11 +4,26 @@
 }
 
 body {
+	font-family: 'Source Sans Pro', sans-serif;
 	background: url(../images/background.png) center 125px;
+	text-align: center;
+	line-height: 1.2;
+	color: #bcbcbc;
+	padding: 16px;
 }
 
 #logo {
 	display: block;
-	margin: 125px auto 0;
+	margin: 125px auto;
 	background: url(../images/cut-background.png) fixed;
+	max-width: 90%;
+}
+
+h1, h2, h3{
+	font-weight: 200;
+	margin-bottom: 16px;
+}
+
+a, a:visited {
+	color: inherit;
 }
