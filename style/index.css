@@ -1,0 +1,14 @@
+﻿* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url(../images/Background.png) center 125px;
+}
+
+#logo {
+	display: block;
+	margin: 125px auto 0;
+	background: url(../images/cut-background.png) fixed;
+}
