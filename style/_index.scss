@@ -1,11 +1,14 @@
-﻿* {
+$logoTop: 10vh;
+$logoWidth: 804px;
+
+* {
 	margin: 0;
 	padding: 0;
 }
 
 body {
 	font-family: 'Source Sans Pro', sans-serif;
-	background: url(../images/background.png) center 10vh;
+	background: url(../images/background.png) center $logoTop;
 	text-align: center;
 	line-height: 1.2;
 	color: #bcbcbc;
@@ -14,7 +17,7 @@ body {
 
 #logo {
 	display: block;
-	margin: 10vh auto 48px;
+	margin: $logoTop auto 48px;
 	background: url(../images/cut-background.png) fixed;
 	max-width: 90%;
 }
