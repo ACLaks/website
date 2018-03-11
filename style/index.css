@@ -4,7 +4,7 @@
 }
 
 body {
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Source Sans Pro', Arimo, sans-serif;
 	background: url(../images/background.png) center 10vh;
 	text-align: center;
 	line-height: 1.2;
@@ -26,4 +26,9 @@ h1, h2, h3{
 
 a, a:visited {
 	color: inherit;
+}
+
+img {
+	max-width: 100%;
+	margin: 0 auto;
 }
