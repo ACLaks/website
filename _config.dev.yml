@@ -1,0 +1,14 @@
+﻿# For local development, let Gulp handle styles so we get source maps.
+keep_files:
+  - style
+
+exclude:
+  - style
+  # Re-add the defaults
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
