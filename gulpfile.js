@@ -64,7 +64,7 @@ gulp.task('watch', function () {
 	}));
 });
 
-gulp.task('server', ['watch', 'jekyll-dev'], function () {
+gulp.task('server', ['default', 'watch', 'jekyll-dev'], function () {
 	gulp.src('./_site')
 		.pipe(server({
 			livereload: {
