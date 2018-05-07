@@ -7,7 +7,7 @@ $logoWidth: 804px;
 }
 
 body {
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Source Sans Pro', Arimo, sans-serif;
 	background: url(../images/background.png) center $logoTop;
 	text-align: center;
 	line-height: 1.2;
@@ -23,11 +23,48 @@ body {
 	max-width: 90%;
 }
 
-h1, h2, h3{
+h1, h2, h3 {
 	font-weight: 200;
 	margin-bottom: 16px;
 }
 
 a, a:visited {
 	color: inherit;
+}
+
+img {
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.Column {
+	width: 80%;
+	max-width: 960px;
+	margin: 0 auto;
+	text-align: justify;
+}
+
+.ProductRow h3 {
+	font-size: 37px;
+	display: flex;
+	justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+	.ProductRow {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.ProductRow:nth-child(2n) img {
+		margin-right: 16px
+	}
+
+	.ProductRow:nth-child(2n+1) img {
+		margin-left: 16px
+	}
+
+	.ProductRow:nth-child(2n+1) {
+		flex-direction: row-reverse;
+	}
 }
