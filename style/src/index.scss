@@ -54,17 +54,28 @@ img {
 	.ProductRow {
 		display: flex;
 		justify-content: space-between;
+		overflow: hidden;
 	}
 
-	.ProductRow:nth-child(2n) img {
+	.ProductRow .Image {
+		flex-shrink: .8;
+	}
+
+	.ProductRow:nth-child(2n) .Image {
 		margin-right: 16px
 	}
 
-	.ProductRow:nth-child(2n+1) img {
+	.ProductRow:nth-child(2n+1) .Image {
 		margin-left: 16px
 	}
 
 	.ProductRow:nth-child(2n+1) {
 		flex-direction: row-reverse;
+	}
+}
+
+@media (max-width: 641px) {
+	.ProductRow {
+		margin-bottom: 24px;
 	}
 }

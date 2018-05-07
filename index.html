@@ -38,8 +38,8 @@
 	<div class="Column">
 		{% for product in site.products %}
 		<div class="ProductRow">
-			<img src="{{ product.photo }}" />
-			<div>
+			<div class="Image"><img src="{{ product.photo }}" /></div>
+			<div class="Description">
 				<h3>
 					{{ product.name | xml_escape }}
 					<span class="Price">${{ product.price }}.00</span>
