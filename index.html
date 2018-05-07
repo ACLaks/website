@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+---
+---
+<!DOCTYPE html>
 <html>
 <head>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115520232-1"></script>
@@ -34,46 +36,18 @@
 
 	<h1>Our Products</h1>
 	<div class="Column">
+		{% for product in site.products %}
 		<div class="ProductRow">
-			<img src="https://placekitten.com/420/320?image=1" />
+			<img src="{{ product.photo }}" />
 			<div>
 				<h3>
-					Mah Rabu
-					<span class="Price">$54.00</span>
+					{{ product.name | xml_escape }}
+					<span class="Price">${{ product.price }}.00</span>
 				</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+				<p>{{ product.content }}</p>
 			</div>
 		</div>
-		<div class="ProductRow">
-			<img src="https://placekitten.com/420/320?image=2" />
-			<div>
-				<h3>
-					Mizrach
-					<span class="Price">$36.00</span>
-				</h3>
-				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-			</div>
-		</div>
-		<div class="ProductRow">
-			<img src="https://placekitten.com/420/320?image=3" />
-			<div>
-				<h3>
-					Shalom Dove
-					<span class="Price">$54.00</span>
-				</h3>
-				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-			</div>
-		</div>
-		<div class="ProductRow">
-			<img src="https://placekitten.com/420/320?image=3" />
-			<div>
-				<h3>
-					Mah Rabu
-					<span class="Price">$54.00</span>
-				</h3>
-				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-			</div>
-		</div>
+		{% endfor %}
 	</div>
 	<h2>More coming soon</h2>
 </body>
