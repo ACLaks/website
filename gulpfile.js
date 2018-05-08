@@ -52,10 +52,22 @@ gulp.task('default', function () {
 			.pipe(gulp.dest('./style'))
 	]);
 });
-gulp.task('jekyll-dev', function (done) {
-	// TODO: Wait for initial build
-	cp.spawn('bundle', ['exec', 'jekyll', 'build', '--watch', '--config', '_config.yml,_config.dev.yml'], { stdio: 'inherit', shell: true });
-	done();
+gulp.task('jekyll-dev', function (realDone) {
+	function done() {
+		realDone();
+		done = function () { };
+	}
+	const jekyll = cp.spawn(
+		'bundle', ['exec', 'jekyll', 'build', '--watch', '--config', '_config.yml,_config.dev.yml'],
+		{ stdio: ['inherit', 'pipe', 'inherit'], shell: true }
+	);
+	jekyll.stdout.on('data', buffer => {
+		const out = buffer.toString();
+		out.replace(/\s+$/, '').split(/\r?\n/).forEach(line => log(colors.cyan('Jekyll') + ': ' + line));
+
+		out.includes('done in ') && done();
+	});
+	jekyll.on('exit', () => done());
 });
 
 gulp.task('watch', function () {
