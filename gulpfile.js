@@ -24,14 +24,12 @@ gulp.task('default', function () {
 	const styleSrcs = gulp.src(['./style/src/[^_]*.scss']);
 	return eventStream.merge([
 		styleSrcs
-			.pipe(plumber({
-				errorHandler: function (error) {
-					log(
-						colors.cyan('Plumber') + colors.red(' caught an unhandled error:\n'),
-						error.toString()
-					);
-					this.emit('end');
-				}
+			.pipe(plumber(function (error) {
+				log(
+					colors.cyan('Plumber') + colors.red(' caught an unhandled error:\n'),
+					error.messageFormatted || error.toString()
+				);
+				this.emit('end');
 			}))
 			.pipe(sourcemaps.init())
 			.pipe(sass())
@@ -52,9 +50,9 @@ gulp.task('default', function () {
 			.pipe(gulp.dest('./style'))
 	]);
 });
-gulp.task('jekyll-dev', function (realDone) {
-	function done() {
-		realDone();
+gulp.task('jekyll-watch', function (realDone) {
+	function done(...args) {
+		realDone(...args);
 		done = function () { };
 	}
 	const jekyll = cp.spawn(
@@ -67,16 +65,18 @@ gulp.task('jekyll-dev', function (realDone) {
 
 		out.includes('done in ') && done();
 	});
-	jekyll.on('exit', () => done());
+	// If Jekyll fails to start watching, terminate everything.
+	jekyll.on('exit', () => done(new Error('Jekyll exited unexpectedly')));
 });
 
-gulp.task('watch', function () {
+// Make sure the Jekyll watcher starts successfully first.
+gulp.task('watch', ['jekyll-watch'], function () {
 	watch('./style/src/*.scss', batch(function (events, done) {
 		gulp.start('default', done);
 	}));
 });
 
-gulp.task('server', ['default', 'watch', 'jekyll-dev'], function () {
+gulp.task('server', ['default', 'watch'], function () {
 	gulp.src('./_site')
 		.pipe(server({
 			livereload: {
