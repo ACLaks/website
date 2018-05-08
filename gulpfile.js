@@ -81,6 +81,7 @@ gulp.task('server', ['default', 'watch', 'jekyll-dev'], function () {
 		.pipe(server({
 			livereload: {
 				enable: true,
+				filter: (filePath, cb) => cb(!(/\.scss$/.test(filePath)))
 			},
 			open: true
 		}));
