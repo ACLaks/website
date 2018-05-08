@@ -1,8 +1,10 @@
 ---
 name: Mah Rabu
-price: 54
-photo: https://placekitten.com/420/320?image=1
-size: 8x10
+price: 36
+photo: /images/products/mah-rabu.jpg
+size: 8x10 or 11x14($54)
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+I have always loved this quote and how it relates to the beauty of nature. This piece is a reflection of my love of flowers and the gorgeous colors they can be.
+
+This piece is also available in a myriad of colors; contact us for more details.

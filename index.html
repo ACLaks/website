@@ -38,7 +38,7 @@
 	<div class="Column">
 		{% for product in site.products %}
 		<div class="ProductRow">
-			<div class="Image"><img src="{{ product.photo }}" /></div>
+			<a class="Image" href="{{ product.photo }}"><img src="{{ product.photo }}" /></a>
 			<div class="Description">
 				<h3>
 					{{ product.name | xml_escape }}

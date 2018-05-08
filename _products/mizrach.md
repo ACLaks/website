@@ -1,7 +1,8 @@
 ---
 name: Mizrach
 price: 36
-photo: https://placekitten.com/420/320?image=2
+photo: /images/products/mizrach.jpg
+size: 8x10 or 11x14($54)
 ---
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+The Kotel, with its age-old stones, has always been a place of great inspiration for me. This piece is perfect for the western wall of your home.

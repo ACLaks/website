@@ -66,6 +66,7 @@ img {
 
 	.ProductRow .Image {
 		flex-shrink: .8;
+		max-width: 200px;
 	}
 
 	.ProductRow:nth-child(2n) .Image {
