@@ -28,6 +28,10 @@ h1, h2, h3 {
 	margin-bottom: 16px;
 }
 
+p {
+	margin-bottom: 16px;
+}
+
 a, a:visited {
 	color: inherit;
 }
@@ -48,6 +52,9 @@ img {
 	font-size: 37px;
 	display: flex;
 	justify-content: space-between;
+}
+.ProductRow .Size {
+	font-style: italic;
 }
 
 @media (min-width: 640px) {
