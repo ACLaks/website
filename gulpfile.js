@@ -1,6 +1,5 @@
 'use strict';
 const path = require('path');
-const fs = require('fs');
 const cp = require('child_process');
 
 const colors = require('ansi-colors');
@@ -11,7 +10,6 @@ const eventStream = require('event-stream');
 
 const Vinyl = require('vinyl')
 const watch = require('gulp-watch');
-const batch = require('gulp-batch');
 const plumber = require('gulp-plumber');
 
 const through = require('through2');
@@ -24,14 +22,12 @@ gulp.task('default', function () {
 	const styleSrcs = gulp.src(['./style/src/[^_]*.scss']);
 	return eventStream.merge([
 		styleSrcs
-			.pipe(plumber({
-				errorHandler: function (error) {
-					log(
-						colors.cyan('Plumber') + colors.red(' caught an unhandled error:\n'),
-						error.toString()
-					);
-					this.emit('end');
-				}
+			.pipe(plumber(function (error) {
+				log(
+					colors.cyan('Plumber') + colors.red(' caught an unhandled error:\n'),
+					error.messageFormatted || error.toString()
+				);
+				this.emit('end');
 			}))
 			.pipe(sourcemaps.init())
 			.pipe(sass())
@@ -52,23 +48,36 @@ gulp.task('default', function () {
 			.pipe(gulp.dest('./style'))
 	]);
 });
-gulp.task('jekyll-dev', function (done) {
-	// TODO: Wait for initial build
-	cp.spawn('bundle', ['exec', 'jekyll', 'build', '--watch', '--config', '_config.yml,_config.dev.yml'], { stdio: 'inherit', shell: true });
-	done();
+gulp.task('jekyll-watch', function (realDone) {
+	function done(...args) {
+		realDone(...args);
+		done = function () { };
+	}
+	const jekyll = cp.spawn(
+		'bundle', ['exec', 'jekyll', 'build', '--watch', '--config', '_config.yml,_config.dev.yml'],
+		{ stdio: ['inherit', 'pipe', 'inherit'], shell: true }
+	);
+	jekyll.stdout.on('data', buffer => {
+		const out = buffer.toString();
+		out.replace(/\s+$/, '').split(/\r?\n/).forEach(line => log(colors.cyan('Jekyll') + ': ' + line));
+
+		out.includes('done in ') && done();
+	});
+	// If Jekyll fails to start watching, terminate everything.
+	jekyll.on('exit', () => done(new Error('Jekyll exited unexpectedly')));
 });
 
-gulp.task('watch', function () {
-	watch('./style/src/*.scss', batch(function (events, done) {
-		gulp.start('default', done);
-	}));
+// Make sure the Jekyll watcher starts successfully first.
+gulp.task('watch', ['jekyll-watch'], function () {
+	watch('./style/src/*.scss', done => gulp.start('default', done));
 });
 
-gulp.task('server', ['default', 'watch', 'jekyll-dev'], function () {
+gulp.task('server', ['default', 'watch'], function () {
 	gulp.src('./_site')
 		.pipe(server({
 			livereload: {
 				enable: true,
+				filter: (filePath, cb) => cb(!(/\.scss$/.test(filePath)))
 			},
 			open: true
 		}));
