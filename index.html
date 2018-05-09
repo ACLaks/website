@@ -14,6 +14,8 @@
 	<title>AceArts</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400|Arimo" rel="stylesheet">
+	<link href="packages/slick.css" rel="stylesheet" />
+	<link href="packages/slick-theme.css" rel="stylesheet" />
 	<link href="style/index.css" rel="stylesheet" />
 </head>
 <body>
@@ -31,7 +33,15 @@
 
 	{% if product.size != nil or product.price != nil %}
 	{% if product.size == nil or product.price == nil %}
-	<li>{{ product.relative_path }}: If there is one option, size and price are required.</li>
+	<li>{{ product.relative_path }}: If there is one option, size: and price: are required.</li>
+	{% endif %}
+
+	{% if product.photo == nil and product.photos == nil %}
+	<li>{{ product.relative_path }}: If there is one option, photo(s): are required.</li>
+	{% endif %}
+
+	{% if product.photo != nil and product.photos != nil %}
+	<li>{{ product.relative_path }}: Cannot specify photo: and photos:.</li>
 	{% endif %}
 	{% endif %}
 
@@ -43,7 +53,7 @@
 	{% endif %}
 
 
-	{% if product.size != nil or product.price != nil %}
+	{% if product.size != nil or product.price != nil or product.photo != nil %}
 	<li>{{ product.relative_path }}: If there are multiple options, you must not specify top-level size, price, or photo.</li>
 	{% endif %}
 
@@ -52,7 +62,7 @@
 	{% endcapture %}
 
 	{% if errors contains 'li' %}
-	<link type="text/css" rel="stylesheet" href="style/validate.css" />
+	<link rel="stylesheet" href="style/validate.css" />
 	<ul class="Errors">{{ errors }}</ul>
 	{% endif %}
 	{% endif %}
@@ -69,7 +79,20 @@
 	<div class="Column">
 		{% for product in site.products %}
 		<div class="ProductRow">
+			{% if product.options or product.photos %}
+			<div class="Image Slider">
+				{% for option in product.options %}
+				<a href="{{ option.photo }}">
+					<img src="{{ option.photo }}" />
+				</a>
+				{% endfor %}
+				{% for photo in product.photos %}
+				<a href="{{ photo }}"><img src="{{ photo }}" /></a>
+				{% endfor %}
+			</div>
+			{% else %}
 			<a class="Image" href="{{ product.photo }}"><img src="{{ product.photo }}" /></a>
+			{% endif %}
 			<div class="Description">
 				<h3>
 					{{ product.name | xml_escape }}
@@ -99,5 +122,13 @@
 		{% endfor %}
 	</div>
 	<h2>More coming soon</h2>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="packages/slick.min.js"></script>
+	<script>
+		$('.Slider').slick({
+			dots: true,
+			arrows: false,
+		});
+	</script>
 </body>
 </html>

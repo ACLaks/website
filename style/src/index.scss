@@ -66,8 +66,13 @@ img {
 		font-style: italic;
 	}
 
-	ul {
+	.Description ul {
 		padding-left: 32px;
+	}
+
+	.slick-dots li button:before {
+		color: $foreground;
+		font-size: 10px;
 	}
 }
 
