@@ -42,7 +42,7 @@
 			<div class="Description">
 				<h3>
 					{{ product.name | xml_escape }}
-					<span class="Price">${{ product.price }}.00</span>
+					<span class="Price">${{ product.price | round: 1}}0</span>
 				</h3>
 				<p>{{ product.content }}</p>
 				<p class="Size">Size: {{ product.size }}</p>

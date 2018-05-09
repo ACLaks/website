@@ -64,6 +64,10 @@ img {
 		overflow: hidden;
 	}
 
+	.ProductRow .Description {
+		flex-grow: 1;
+	}
+
 	.ProductRow .Image {
 		flex-shrink: .8;
 		max-width: 200px;
