@@ -17,5 +17,8 @@
     "type": "git",
     "url": "git+https://github.com/ACLaks/website.git"
   },
-  "author": "SLaks"
+  "author": "SLaks",
+  "dependencies": {
+    "slick-carousel": "^1.8.1"
+  }
 }

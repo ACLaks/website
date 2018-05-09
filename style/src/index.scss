@@ -1,6 +1,8 @@
 $logoTop: 10vh;
 $logoWidth: 804px;
 
+$foreground: #bcbcbc;
+
 * {
 	margin: 0;
 	padding: 0;
@@ -11,7 +13,7 @@ body {
 	background: url(../images/background.png) center $logoTop;
 	text-align: center;
 	line-height: 1.2;
-	color: #bcbcbc;
+	color: $foreground;
 	padding: 0 16px 32px;
 }
 
@@ -48,13 +50,30 @@ img {
 	text-align: justify;
 }
 
-.ProductRow h3 {
-	font-size: 37px;
-	display: flex;
-	justify-content: space-between;
-}
-.ProductRow .Size {
-	font-style: italic;
+.ProductRow {
+	padding-bottom: 16px;
+	border-bottom: solid 1px $foreground;
+	margin-bottom: 16px;
+
+	h3 {
+		font-size: 37px;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	.Size {
+		font-style: italic;
+	}
+
+	.Description ul {
+		padding-left: 32px;
+	}
+
+	.slick-dots li button:before {
+		color: $foreground;
+		font-size: 10px;
+	}
 }
 
 @media (min-width: 640px) {
@@ -64,9 +83,14 @@ img {
 		overflow: hidden;
 	}
 
+	.ProductRow .Description {
+		flex-grow: 1;
+		flex-basis: 70%;
+	}
+
 	.ProductRow .Image {
-		flex-shrink: .8;
-		max-width: 200px;
+		flex-shrink: 1;
+		width: 200px;
 	}
 
 	.ProductRow:nth-child(2n) .Image {

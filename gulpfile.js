@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path');
+const fs = require('fs');
 const cp = require('child_process');
 
 const colors = require('ansi-colors');
@@ -10,6 +11,7 @@ const eventStream = require('event-stream');
 
 const Vinyl = require('vinyl')
 const watch = require('gulp-watch');
+const batch = require('gulp-batch');
 const plumber = require('gulp-plumber');
 
 const through = require('through2');
@@ -18,9 +20,20 @@ const server = require('gulp-server-livereload');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
+// Array of require()-style paths to files from npm that should be published.
+const npmDependencies = [
+	'slick-carousel/slick/slick.min.js',
+	'slick-carousel/slick/slick.css',
+	'slick-carousel/slick/slick-theme.css',
+	'slick-carousel/slick/**/slick.*',	// For fonts
+];
+
 gulp.task('default', function () {
 	const styleSrcs = gulp.src(['./style/src/[^_]*.scss']);
 	return eventStream.merge([
+		gulp.src(npmDependencies.map(p => './node_modules/' + p))
+			.pipe(gulp.dest('./packages')),
+
 		styleSrcs
 			.pipe(plumber(function (error) {
 				log(
@@ -69,7 +82,9 @@ gulp.task('jekyll-watch', function (realDone) {
 
 // Make sure the Jekyll watcher starts successfully first.
 gulp.task('watch', ['jekyll-watch'], function () {
-	watch('./style/src/*.scss', done => gulp.start('default', done));
+	watch('./style/src/*.scss', batch(function (events, done) {
+		gulp.start('default', done);
+	}));
 });
 
 gulp.task('server', ['default', 'watch'], function () {
