@@ -1,6 +1,8 @@
 $logoTop: 10vh;
 $logoWidth: 804px;
 
+$foreground: #bcbcbc;
+
 * {
 	margin: 0;
 	padding: 0;
@@ -11,7 +13,7 @@ body {
 	background: url(../images/background.png) center $logoTop;
 	text-align: center;
 	line-height: 1.2;
-	color: #bcbcbc;
+	color: $foreground;
 	padding: 0 16px 32px;
 }
 
@@ -48,13 +50,24 @@ img {
 	text-align: justify;
 }
 
-.ProductRow h3 {
-	font-size: 37px;
-	display: flex;
-	justify-content: space-between;
-}
-.ProductRow .Size {
-	font-style: italic;
+.ProductRow {
+	padding-bottom: 16px;
+	border-bottom: solid 1px $foreground;
+	margin-bottom: 16px;
+
+	h3 {
+		font-size: 37px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.Size {
+		font-style: italic;
+	}
+
+	ul {
+		padding-left: 32px;
+	}
 }
 
 @media (min-width: 640px) {

@@ -73,10 +73,27 @@
 			<div class="Description">
 				<h3>
 					{{ product.name | xml_escape }}
+					{% if product.options %}
+					<span class="Price">
+						${{ product.options.first.price | round: 1}}0
+						&ndash;
+						${{ product.options.last.price | round: 1}}0
+					</span>
+					{% else %}
 					<span class="Price">${{ product.price | round: 1}}0</span>
+					{% endif %}
 				</h3>
 				<p>{{ product.content }}</p>
+				{% if product.options %}
+				<p class="Size">Available in:</p>
+				<ul>
+					{% for option in product.options %}
+					<li>{{ option.size }}: ${{ option.price | round: 1}}0</li>
+					{% endfor %}
+				</ul>
+				{% else %}
 				<p class="Size">Size: {{ product.size }}</p>
+				{% endif %}
 			</div>
 		</div>
 		{% endfor %}
