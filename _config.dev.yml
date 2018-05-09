@@ -1,4 +1,6 @@
-﻿# For local development, let Gulp handle styles so we get source maps.
+﻿debug: true
+
+# For local development, let Gulp handle styles so we get source maps.
 keep_files:
   - style
 
