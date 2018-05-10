@@ -6,10 +6,12 @@ options:
     size: 8x8
 
   - price: 54
+    is_duplicate: true
     photo: /images/products/clock-standing.jpg
     size: 6x8  
 
   - price: 54
+    is_duplicate: true
     photo: /images/products/clock-large-silver.jpg
     size: 12x12
 ---

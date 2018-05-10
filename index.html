@@ -47,11 +47,15 @@
 
 	{% if product.options != nil %}
 
-	{% assign sorted = product.options | sort: 'price' %}
-	{% if product.options != sorted %}
+	{% assign expected = product.options | where_exp: 'p', 'p.is_duplicate == nil' | map: 'price' %}
+	{% assign unique = expected | uniq %}
+	{% assign sorted = expected | sort %}
+	{% if expected != sorted %}
 	<li>{{ product.relative_path }}: Options must be sorted by price.</li>
 	{% endif %}
-
+	{% if expected != unique %}
+	<li>{{ product.relative_path }}: You have duplicate prices.  If this is by design, please add <code>is_duplicate: true</code>.</li>
+	{% endif %}
 
 	{% if product.size != nil or product.price != nil or product.photo != nil %}
 	<li>{{ product.relative_path }}: If there are multiple options, you must not specify top-level size, price, or photo.</li>
