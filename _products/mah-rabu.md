@@ -7,7 +7,6 @@ options:
 
    - price: 54
      size: 11x14 
-     photo: https://placekitten.com/800/600
 ---
 
 I have always loved the way this quote perfectly expresses the beauty of nature. This piece reflects my love of flowers and their variety of gorgeous colorings.
