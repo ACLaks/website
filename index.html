@@ -82,9 +82,11 @@
 			{% if product.options or product.photos %}
 			<div class="Image Slider">
 				{% for option in product.options %}
+				{% if option.photo %}
 				<a href="{{ option.photo }}">
 					<img src="{{ option.photo }}" />
 				</a>
+				{% endif %}
 				{% endfor %}
 				{% for photo in product.photos %}
 				<a href="{{ photo }}"><img src="{{ photo }}" /></a>
