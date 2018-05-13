@@ -5,8 +5,7 @@ options:
     photo: /images/products/ivdue-acrylic.jpg
     size: 8x8 
 
-  - price: 
-  - 54
+  - price: 54
     photo: /images/products/ivdue.jpg
     size: 12x12
 ---
