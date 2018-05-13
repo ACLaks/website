@@ -20,20 +20,26 @@ const server = require('gulp-server-livereload');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
-// Array of require()-style paths to files from npm that should be published.
-const npmDependencies = [
-	'slick-carousel/slick/slick.min.js',
-	'slick-carousel/slick/slick.css',
-	'slick-carousel/slick/slick-theme.css',
-	'slick-carousel/slick/**/slick.*',	// For fonts
-];
+gulp.task('packages', function () {
+	function npmSrc(srcs) {
+		return gulp.src(srcs.map(p => './node_modules/' + p));
+	}
+
+	return eventStream.merge([
+		npmSrc([
+			'slick-carousel/slick/slick.min.js',
+			'slick-carousel/slick/slick.css',
+			'slick-carousel/slick/slick-theme.css',
+		]).pipe(gulp.dest('./packages')),
+
+		npmSrc(['slick-carousel/slick/fonts/*'])
+			.pipe(gulp.dest('./packages/fonts')),
+	]);
+});
 
 gulp.task('default', function () {
 	const styleSrcs = gulp.src(['./style/src/[^_]*.scss']);
 	return eventStream.merge([
-		gulp.src(npmDependencies.map(p => './node_modules/' + p))
-			.pipe(gulp.dest('./packages')),
-
 		styleSrcs
 			.pipe(plumber(function (error) {
 				log(
@@ -61,7 +67,7 @@ gulp.task('default', function () {
 			.pipe(gulp.dest('./style'))
 	]);
 });
-gulp.task('jekyll-watch', function (realDone) {
+gulp.task('jekyll-watch', ['packages'], function (realDone) {
 	function done(...args) {
 		realDone(...args);
 		done = function () { };
