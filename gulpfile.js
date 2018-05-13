@@ -74,7 +74,7 @@ gulp.task('jekyll-watch', ['packages'], function (realDone) {
 	}
 	const jekyll = cp.spawn(
 		'bundle', ['exec', 'jekyll', 'build', '--watch', '--config', '_config.yml,_config.dev.yml'],
-		{ stdio: ['inherit', 'pipe', 'inherit'], shell: true }
+		{ stdio: ['pipe', 'pipe', 'inherit'], shell: true }
 	);
 	jekyll.stdout.on('data', buffer => {
 		const out = buffer.toString();
@@ -84,6 +84,11 @@ gulp.task('jekyll-watch', ['packages'], function (realDone) {
 	});
 	// If Jekyll fails to start watching, terminate everything.
 	jekyll.on('exit', () => done(new Error('Jekyll exited unexpectedly')));
+
+	process.on("SIGINT", function () {
+		log(colors.red('Caught Ctrl+C; exiting'));
+		jekyll.kill();
+	});
 });
 
 // Make sure the Jekyll watcher starts successfully first.
@@ -108,3 +113,15 @@ gulp.task('server', ['default', 'watch'], function () {
 function generateFile(cb) {
 	return through.obj((file, encoding, outerCallback) => outerCallback(null, cb(file)));
 };
+
+// Catch Ctrl+C before the batch file.  https://stackoverflow.com/a/14861513/34397
+if (process.platform === "win32") {
+	var rl = require("readline").createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
+
+	rl.on("SIGINT", function () {
+		process.emit("SIGINT");
+	});
+}
