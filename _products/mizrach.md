@@ -4,6 +4,7 @@ options:
   - price: 36
     photo: /images/products/mizrach.jpg
     size: 8x10
+    theme: dark
 
   - price: 54
     size: 11x14

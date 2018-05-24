@@ -4,9 +4,13 @@ options:
   - price: 32
     photo: /images/products/dove-acrylic.jpg
     size: 5x7
+    theme: dark
+
   - price: 36
     photo: /images/products/shalom-dove.jpg
     size: 8x8
+    theme: dark
+
   - price: 54
     size: 12x12
 ---

@@ -4,6 +4,8 @@ options:
   - price: 7.5
     photo: /images/products/havdala-mat-small.jpg
     size: 9x12
+    theme: dark
+
   - price: 10
     size: 12x18
 ---

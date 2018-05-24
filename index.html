@@ -34,7 +34,13 @@
 	{% for option in product.options %}
 
 	{% if option.photo != nil and option.photos != nil %}
-	<li>{{ option.relative_path }}: Cannot specify photo: and photos:.</li>
+	<li>{{ product.relative_path }}, {{ option.size }}: Cannot specify photo: and photos:.</li>
+	{% endif %}
+
+	{% if option.photo != nil or option.photos != nil %}
+	{% if option.theme != 'dark' and option.theme != 'light' %}
+	<li>{{ product.relative_path }}, {{ option.size }}: Options with photos must have theme: light or dark.</li>
+	{% endif %}
 	{% endif %}
 	{% endfor %}
 
