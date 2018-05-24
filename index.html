@@ -31,21 +31,13 @@
 	{% capture errors %}
 	{% for product in site.products %}
 
-	{% if product.size != nil or product.price != nil %}
-	{% if product.size == nil or product.price == nil %}
-	<li>{{ product.relative_path }}: If there is one option, size: and price: are required.</li>
-	{% endif %}
+	{% for option in product.options %}
 
-	{% if product.photo == nil and product.photos == nil %}
-	<li>{{ product.relative_path }}: If there is one option, photo(s): are required.</li>
+	{% if option.photo != nil and option.photos != nil %}
+	<li>{{ option.relative_path }}: Cannot specify photo: and photos:.</li>
 	{% endif %}
+	{% endfor %}
 
-	{% if product.photo != nil and product.photos != nil %}
-	<li>{{ product.relative_path }}: Cannot specify photo: and photos:.</li>
-	{% endif %}
-	{% endif %}
-
-	{% if product.options != nil %}
 
 	{% assign expected = product.options | where_exp: 'p', 'p.is_duplicate == nil' | map: 'price' %}
 	{% assign unique = expected | uniq %}
@@ -57,11 +49,6 @@
 	<li>{{ product.relative_path }}: You have duplicate prices.  If this is by design, please add <code>is_duplicate: true</code>.</li>
 	{% endif %}
 
-	{% if product.size != nil or product.price != nil or product.photo != nil %}
-	<li>{{ product.relative_path }}: If there are multiple options, you must not specify top-level size, price, or photo.</li>
-	{% endif %}
-
-	{% endif %}
 	{% endfor %}
 	{% endcapture %}
 
@@ -83,7 +70,9 @@
 	<div class="Column">
 		{% for product in site.products %}
 		<div class="ProductRow">
-			{% if product.options or product.photos %}
+			{% unless product.options.size > 1 or product.options[0].photos %}
+			<a class="Image" href="{{ product.options[0].photo }}"><img src="{{ product.options[0].photo }}" /></a>
+			{% else %}
 			<div class="Image Slider">
 				{% for option in product.options %}
 				{% if option.photo %}
@@ -91,37 +80,35 @@
 					<img src="{{ option.photo }}" />
 				</a>
 				{% endif %}
-				{% endfor %}
-				{% for photo in product.photos %}
+				{% for photo in option.photos %}
 				<a href="{{ photo }}"><img src="{{ photo }}" /></a>
 				{% endfor %}
+				{% endfor %}
 			</div>
-			{% else %}
-			<a class="Image" href="{{ product.photo }}"><img src="{{ product.photo }}" /></a>
-			{% endif %}
+			{% endunless %}
 			<div class="Description">
 				<h3>
 					{{ product.name | xml_escape }}
-					{% if product.options %}
+					{% if product.options.size == 1 %}
+					<span class="Price">${{ product.options[0].price | round: 1}}0</span>
+					{% else %}
 					<span class="Price">
 						${{ product.options.first.price | round: 1}}0
 						&ndash;
 						${{ product.options.last.price | round: 1}}0
 					</span>
-					{% else %}
-					<span class="Price">${{ product.price | round: 1}}0</span>
 					{% endif %}
 				</h3>
 				<p>{{ product.content }}</p>
-				{% if product.options %}
+				{% if product.options.size == 1 %}
+				<p class="Size">Size: {{ product.options[0].size }}</p>
+				{% else %}
 				<p class="Size">Available in:</p>
 				<ul>
 					{% for option in product.options %}
 					<li>{{ option.size }}: ${{ option.price | round: 1}}0</li>
 					{% endfor %}
 				</ul>
-				{% else %}
-				<p class="Size">Size: {{ product.size }}</p>
 				{% endif %}
 			</div>
 		</div>
