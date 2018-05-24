@@ -88,6 +88,7 @@ gulp.task('jekyll-watch', ['packages'], function (realDone) {
 	process.on("SIGINT", function () {
 		log(colors.red('Caught Ctrl+C; exiting'));
 		jekyll.kill();
+		process.exit();
 	});
 });
 
