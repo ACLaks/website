@@ -1,0 +1,28 @@
+$lightColor: #bcbcbc;
+$darkColor: #2f0555;
+#logo {
+    position: relative;
+    margin-top: 24px;
+    max-width: 60%;
+}
+
+.Container {
+    display: flex;
+    align-items: stretch;
+    .Light,
+    .Dark {
+        width: 50%;
+    }
+    .Light {
+        background: $lightColor;
+        color: $darkColor;
+        text-align: right;
+        padding-right: 24px;
+    }
+    .Dark {
+        background: $darkColor;
+        color: $lightColor;
+        text-align: left;
+        padding-left: 24px;
+    }
+}
