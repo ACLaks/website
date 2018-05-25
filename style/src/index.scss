@@ -1,23 +1,18 @@
-$imageWidth: 120px;
-$imageSpacing: 16px;
+$imageWidth: 180px;
+$imageSpacing: 24px;
+
 .ProductColumns {
-    width: 2 * ($imageWidth + $imageSpacing);
-}
+	width: 2 * ($imageWidth + $imageSpacing);
+	margin-left: -$imageSpacing; // Cancel out the margin from the first column.
+	display: inline-block;
 
-.ProductThumbnail {
-    width: $imageWidth;
-    float: left;
-    img {}
-}
+	.ProductThumbnail {
+		margin-left: $imageSpacing;
+		margin-top: $imageSpacing;
+		width: $imageWidth;
 
-.Light {
-    .ProductThumbnail {
-        margin-left: $imageSpacing;
-    }
-}
-
-.Dark {
-    .ProductThumbnail {
-        margin-right: $imageSpacing;
-    }
+		img {
+			display: block;
+		}
+	}
 }

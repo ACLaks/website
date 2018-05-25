@@ -1,9 +1,8 @@
-$lightColor: #bcbcbc;
+$lightColor: #eee;
 $darkColor: #2f0555;
 #logo {
     position: relative;
-    margin-top: 24px;
-    max-width: 60%;
+    max-width: 70%;
 }
 
 .Container {
@@ -12,6 +11,7 @@ $darkColor: #2f0555;
     .Light,
     .Dark {
         width: 50%;
+		padding: 24px;
     }
     .Light {
         background: $lightColor;

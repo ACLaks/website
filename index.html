@@ -23,11 +23,11 @@ themes: ['light', 'dark']
 </head>
 <body>
 
-	 <header class="Container">
-		 <div class="Light">
+	<header class="Container">
+		<div class="Light">
 			<img src="images/logo.svg" id="logo">
-		 </div>
-		 <div class="Dark">
+		</div>
+		<div class="Dark">
 			<h1>Judaica papercuts for your walls and for gifts.</h1>
 			<h3>We're still setting up our website &amp; online store.</h3>
 			<h2>
@@ -35,8 +35,8 @@ themes: ['light', 'dark']
 			</h2>
 			<h2>You can also come to Elizabeth and buy directly; call to set up an appointment.  We accept credit cards.</h2>
 			<h3>Customized and personalized art available upon request.</h3>
-		 </div>
-	 </header>
+		</div>
+	</header>
 	{% if site.debug %}
 	{% capture errors %}
 	{% for product in site.products %}
@@ -82,20 +82,29 @@ themes: ['light', 'dark']
 				{% for option in product.options %}
 				{% if option.theme == theme %}
 
-				<a class="ProductThumbnail" href="{{ product.title | slugify }}#{{ option.size | slugify }}">
-					<img src="{{ option.photo }}" 
-						title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
+				<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}#{{ option.size | slugify }}">
+					<img src="{{ option.photo }}"
+						 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
 				</a>
 				{% endif %}
 				{% endfor %}
 				{% endfor %}
-				</div>
 			</div>
+		</div>
 		{% endfor %}
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 	<script src="packages/slick.min.js"></script>
 	<script>
+		var grids = $('.ProductColumns').masonry({
+			itemSelector: '.ProductThumbnail',
+		});
+		grids.imagesLoaded().progress(function () {
+			grids.masonry('layout');
+		});
+
 		$('.Slider').slick({
 			dots: true,
 			arrows: false,
