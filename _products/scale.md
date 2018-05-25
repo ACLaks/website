@@ -4,7 +4,7 @@ options:
   - price: 36
     photo: /images/products/scale.jpg
     size: 8x10
-    theme: light
+    theme: dark
 
   - price: 54
     size: 11x14
