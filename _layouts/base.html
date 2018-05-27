@@ -1,5 +1,4 @@
 ﻿---
-layout: nil
 ---
 <!DOCTYPE html>
 <html>
@@ -26,10 +25,24 @@ layout: nil
 <body>
 	<header class="Container">
 		<div class="Light">
-			<img src="images/logo.svg" id="logo">
+			<a href="/"><img src="images/logo.svg" id="logo"></a>
 		</div>
-		<div class="Dark">
-			<h1>Judaica papercuts for your walls and for gifts.</h1>
+		<div class="Dark CenteredRow">
+			{% if site.debug %}
+			<!-- Current page: {{ page.url }} -->
+			{% endif %}
+			<div>
+				<ul class="Navigation">
+					{% for item in site.menu %}
+					<li>
+						<a class="{% if item.url == page.url %}Active{% endif %}"
+						   href="{{ item.url }}">{{ item.title }}</a>
+					</li>
+					{% endfor %}
+				</ul>
+
+				<h1>Judaica papercuts for your walls and for gifts.</h1>
+			</div>
 		</div>
 	</header>
 

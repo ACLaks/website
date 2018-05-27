@@ -27,6 +27,13 @@ defaults:
     values:
         layout: base
 
+menu:
+  - title: Home
+    url: /
+
+  - title: About
+    url: /about.html
+
 collections:
    - products
 
