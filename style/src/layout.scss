@@ -6,6 +6,31 @@ $darkColor: #2f0555;
 	max-width: 70%;
 }
 
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+
+	> * {
+		flex-shrink: 0;
+	}
+	// Stretch the footer to the bottom of the
+	// page, & align its content to the bottom
+	.Container.Footer {
+		flex-grow: 1;
+
+		> * {
+			display: flex;
+			justify-content: flex-end;
+			flex-direction: column;
+		}
+	}
+}
+
 .Container {
 	display: flex;
 	align-items: stretch;
