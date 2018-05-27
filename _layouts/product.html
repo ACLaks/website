@@ -11,12 +11,8 @@ styles:
 		{% else %}
 		<div class="Image Slider">
 			{% for option in page.options %}
-			{% if option.photo %}
-			<a href="{{ option.photo }}">
-				<img src="{{ option.photo }}" />
-			</a>
-			{% endif %}
-			{% for photo in option.photos %}
+			{% assign photos = option.photos | default: option.photo %}
+			{% for photo in photos %}
 			<a href="{{ photo }}"><img src="{{ photo }}" /></a>
 			{% endfor %}
 			{% endfor %}

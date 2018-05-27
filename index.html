@@ -49,10 +49,13 @@ styles: ['style/index.css']
 			{% for option in product.options %}
 			{% if option.theme == theme %}
 
+			{% assign photos = option.photos | default: option.photo %}
+			{% for photo in photos %}
 			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}.html#{{ option.size | slugify }}">
-				<img src="/{{ option.photo }}"
+				<img src="{{ photo }}"
 					 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
 			</a>
+			{% endfor %}
 			{% endif %}
 			{% endfor %}
 			{% endfor %}
