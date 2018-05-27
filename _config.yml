@@ -21,6 +21,12 @@ markdown: CommonMarkGhPages
 sass:
     sass_dir: style
 
+defaults:
+  - scope:
+        path: ""
+    values:
+        layout: base
+
 collections:
    - products
 

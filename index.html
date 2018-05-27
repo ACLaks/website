@@ -1,116 +1,73 @@
 ---
 themes: ['light', 'dark']
+styles: ['style/index.css']
 ---
-<!DOCTYPE html>
-<html>
-<head>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115520232-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'UA-115520232-1');
-	</script>
-	<title>AceArts</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400|Arimo" rel="stylesheet">
-	<link href="packages/slick.css" rel="stylesheet" />
-	<link href="packages/slick-theme.css" rel="stylesheet" />
-	<link href="style/reset.css" rel="stylesheet" />
-	<link href="style/layout.css" rel="stylesheet" />
-	<link href="style/index.css" rel="stylesheet" />
-</head>
-<body>
-
-	<header class="Container">
-		<div class="Light">
-			<img src="images/logo.svg" id="logo">
-		</div>
-		<div class="Dark">
-			<h1>Judaica papercuts for your walls and for gifts.</h1>
-			<h3>We're still setting up our website &amp; online store.</h3>
-			<h2>
-				For more information, email <a href="mailto:Aviva@AceArts.net">Aviva@AceArts.net</a> or call Aviva Chana at (908) 845 - 5569.
-			</h2>
-			<h2>You can also come to Elizabeth and buy directly; call to set up an appointment.  We accept credit cards.</h2>
-			<h3>Customized and personalized art available upon request.</h3>
-		</div>
-	</header>
-	{% if site.debug %}
+{% if site.debug %}
 	{% capture errors %}
-	{% for product in site.products %}
+		{% for product in site.products %}
 
-	{% for option in product.options %}
+			{% for option in product.options %}
 
-	{% if option.photo != nil and option.photos != nil %}
-	<li>{{ product.relative_path }}, {{ option.size }}: Cannot specify photo: and photos:.</li>
-	{% endif %}
+				{% if option.photo != nil and option.photos != nil %}
+<li>{{ product.relative_path }}, {{ option.size }}: Cannot specify photo: and photos:.</li>
+				{% endif %}
 
-	{% if option.photo != nil or option.photos != nil %}
-	{% unless page.themes contains option.theme %}
-	<li>{{ product.relative_path }}, {{ option.size }}: Options with photos must have theme: light or dark.</li>
-	{% endunless %}
-	{% endif %}
-	{% endfor %}
+				{% if option.photo != nil or option.photos != nil %}
+					{% unless page.themes contains option.theme %}
+<li>{{ product.relative_path }}, {{ option.size }}: Options with photos must have theme: light or dark.</li>
+					{% endunless %}
+				{% endif %}
+			{% endfor %}
 
 
-	{% assign expected = product.options | where_exp: 'p', 'p.is_duplicate == nil' | map: 'price' %}
-	{% assign unique = expected | uniq %}
-	{% assign sorted = expected | sort %}
-	{% if expected != sorted %}
-	<li>{{ product.relative_path }}: Options must be sorted by price.</li>
-	{% endif %}
-	{% if expected != unique %}
-	<li>{{ product.relative_path }}: You have duplicate prices.  If this is by design, please add <code>is_duplicate: true</code>.</li>
-	{% endif %}
+			{% assign expected = product.options | where_exp: 'p', 'p.is_duplicate == nil' | map: 'price' %}
+			{% assign unique = expected | uniq %}
+			{% assign sorted = expected | sort %}
 
-	{% endfor %}
+			{% if expected != sorted %}
+<li>{{ product.relative_path }}: Options must be sorted by price.</li>
+			{% endif %}
+
+			{% if expected != unique %}
+<li>{{ product.relative_path }}: You have duplicate prices.  If this is by design, please add <code>is_duplicate: true</code>.</li>
+			{% endif %}
+
+		{% endfor %}
 	{% endcapture %}
 
 	{% if errors contains 'li' %}
-	<link rel="stylesheet" href="style/validate.css" />
-	<ul class="Errors">{{ errors }}</ul>
+<link rel="stylesheet" href="style/validate.css" />
+<ul class="Errors">{{ errors }}</ul>
 	{% endif %}
-	{% endif %}
+{% endif %}
 
-	<div class="Container">
-		{% for theme in page.themes %}
-		<div class="{{ theme | capitalize }}">
-			<div class="ProductColumns">
-				{% for product in site.products %}
-				{% for option in product.options %}
-				{% if option.theme == theme %}
+<div class="Container">
+	{% for theme in page.themes %}
+	<div class="{{ theme | capitalize }}">
+		<div class="ProductColumns">
+			{% for product in site.products %}
+			{% for option in product.options %}
+			{% if option.theme == theme %}
 
-				<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}#{{ option.size | slugify }}">
-					<img src="{{ option.photo }}"
-						 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
-				</a>
-				{% endif %}
-				{% endfor %}
-				{% endfor %}
-			</div>
+			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}#{{ option.size | slugify }}">
+				<img src="{{ option.photo }}"
+					 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
+			</a>
+			{% endif %}
+			{% endfor %}
+			{% endfor %}
 		</div>
-		{% endfor %}
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-	<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-	<script src="packages/slick.min.js"></script>
-	<script>
-		var grids = $('.ProductColumns').masonry({
-			itemSelector: '.ProductThumbnail',
-		});
-		grids.imagesLoaded().progress(function () {
-			grids.masonry('layout');
-		});
-
-		$('.Slider').slick({
-			dots: true,
-			arrows: false,
-			autoplay: true,
-			adaptiveHeight: true,
-		});
-	</script>
-</body>
-</html>
+	{% endfor %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script>
+	var grids = $('.ProductColumns').masonry({
+		itemSelector: '.ProductThumbnail',
+	});
+	grids.imagesLoaded().progress(function () {
+		grids.masonry('layout');
+	});
+</script>
