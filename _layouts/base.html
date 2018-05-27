@@ -20,7 +20,9 @@
 	{% for path in page.styles %}
 	<link href="{{ path }}" rel="stylesheet" />
 	{% endfor %}
-
+	{% for path in layout.styles %}
+	<link href="{{ path }}" rel="stylesheet" />
+	{% endfor %}
 </head>
 <body>
 	<header class="Container">
