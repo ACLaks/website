@@ -49,8 +49,8 @@ styles: ['style/index.css']
 			{% for option in product.options %}
 			{% if option.theme == theme %}
 
-			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}#{{ option.size | slugify }}">
-				<img src="{{ option.photo }}"
+			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}.html#{{ option.size | slugify }}">
+				<img src="/{{ option.photo }}"
 					 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
 			</a>
 			{% endif %}

@@ -26,6 +26,10 @@ defaults:
         path: ""
     values:
         layout: base
+  - scope:
+      type: products
+    values:
+      layout: product
 
 menu:
   - title: Home
@@ -35,7 +39,8 @@ menu:
     url: /about.html
 
 collections:
-   - products
+     products:
+        output: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

@@ -1,0 +1,62 @@
+﻿---
+layout: base
+styles:
+  - /packages/slick.css
+  - /packages/slick-theme.css
+---
+<div class="Container">
+	<div class="Light">
+		{% unless page.options.size > 1 or page.options[0].photos %}
+		<a class="Image" href="{{ page.options[0].photo }}"><img src="{{ page.options[0].photo }}" /></a>
+		{% else %}
+		<div class="Image Slider">
+			{% for option in page.options %}
+			{% if option.photo %}
+			<a href="{{ option.photo }}">
+				<img src="{{ option.photo }}" />
+			</a>
+			{% endif %}
+			{% for photo in option.photos %}
+			<a href="{{ photo }}"><img src="{{ photo }}" /></a>
+			{% endfor %}
+			{% endfor %}
+		</div>
+		{% endunless %}
+	</div>
+	<div class="Dark">
+
+		<h3>
+			{{ page.name | xml_escape }}
+			{% if page.options.size == 1 %}
+			<span class="Price">${{ page.options[0].price | round: 1}}0</span>
+			{% else %}
+			<span class="Price">
+				${{ page.options.first.price | round: 1}}0
+				&ndash;
+				${{ page.options.last.price | round: 1}}0
+			</span>
+			{% endif %}
+		</h3>
+		<p>{{ content }}</p>
+		{% if page.options.size == 1 %}
+		<p class="Size">Size: {{ page.options[0].size }}</p>
+		{% else %}
+		<p class="Size">Available in:</p>
+		<ul>
+			{% for option in page.options %}
+			<li>{{ option.size }}: ${{ option.price | round: 1}}0</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/packages/slick.min.js"></script>
+<script>
+	$('.Slider').slick({
+		dots: true,
+		arrows: false,
+		autoplay: true,
+		adaptiveHeight: true,
+	});
+</script>
