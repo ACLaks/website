@@ -63,10 +63,25 @@ styles:
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/packages/slick.min.js"></script>
+<div class="PhotoSizes" data-sizes='[
+{%- for option in page.options -%}
+	{%- assign photos = option.photos | default: option.photo -%}
+	{%- for photo in photos -%}
+		 "{{ option.size }}",
+	{%- endfor -%}
+{%- endfor -%}
+	 ]'></div>
 <script>
+	var optionSizes = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
+	function goToOption(size, dontAnimate) {
+		var index = optionSizes.indexOf(size);
+		if (index >= 0)
+			$('.LargeSlider').slick('slickGoTo', index, dontAnimate);
+	}
+
+
 	$('.LargeSlider').slick({
 		arrows: false,
-		autoplay: true,
 		adaptiveHeight: false,
 		slidesToShow: 1,
 		asNavFor: '.NavSlider',
@@ -81,4 +96,7 @@ styles:
 		slidesToScroll: 10,
 		slidesToShow: 1,
 	});
+
+	if (/^#?\d\w+$/.test(location.hash))
+		goToOption(location.hash.replace('#', ''), true);
 </script>
