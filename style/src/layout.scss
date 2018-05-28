@@ -134,6 +134,7 @@ header.Container {
 	padding: 0;
 	margin: 0 0 16px;
 	display: flex;
+	font-family: $headerFont;
 
 	@media (max-width: $collapsedWidth) {
 		justify-content: center;

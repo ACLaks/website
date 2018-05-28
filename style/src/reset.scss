@@ -1,5 +1,7 @@
+@import "variables";
+
 body {
-	font-family: 'Source Sans Pro', Bellefair, sans-serif;
+	font-family: 'Overlock', Bellefair, sans-serif;
 	line-height: 1.2;
 }
 
@@ -13,6 +15,7 @@ h2,
 h3 {
 	font-weight: 200;
 	margin-bottom: 16px;
+	font-family: $headerFont;
 }
 
 p {
