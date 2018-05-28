@@ -50,12 +50,14 @@ styles:
 			{% endfor %}
 			{% endfor %}
 		</div>
+		{% if page.options.size > 1 %}
 		<p class="Size">Available in:</p>
 		<ul>
 			{% for option in page.options %}
 			<li>{{ option.size }}: ${{ option.price | round: 1}}0</li>
 			{% endfor %}
 		</ul>
+		{% endif %}
 		<p>{{ content }}</p>
 	</div>
 </div>
