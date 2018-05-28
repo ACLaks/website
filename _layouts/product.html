@@ -35,29 +35,28 @@ styles:
 	</div>
 	<div class="Dark">
 
-		<h3>
-			{{ page.name | xml_escape }}
-			{% if page.options.size == 1 %}
-			<span class="Price">${{ page.options[0].price | round: 1}}0</span>
-			{% else %}
-			<span class="Price">
-				${{ page.options.first.price | round: 1}}0
-				&ndash;
-				${{ page.options.last.price | round: 1}}0
-			</span>
-			{% endif %}
-		</h3>
-		<p>{{ content }}</p>
-		{% if page.options.size == 1 %}
-		<p class="Size">Size: {{ page.options[0].size }}</p>
-		{% else %}
+		<h1>{{ page.name | xml_escape }}</h1>
+		<div class="PriceSlider">
+			{% for option in page.options %}
+			{% assign photos = option.photos | default: option.photo %}
+			{% for photo in photos %}
+			<h3 class="CenteredRow">
+				<i class="fas fa-ruler"></i>
+				<span>&nbsp; {{ option.size }}</span>
+				<span class="Spacer"></span>
+				<i class="fas fa-tag"></i>
+				<span>&nbsp; ${{ option.price | round: 1}}0</span>
+			</h3>
+			{% endfor %}
+			{% endfor %}
+		</div>
 		<p class="Size">Available in:</p>
 		<ul>
 			{% for option in page.options %}
 			<li>{{ option.size }}: ${{ option.price | round: 1}}0</li>
 			{% endfor %}
 		</ul>
-		{% endif %}
+		<p>{{ content }}</p>
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
