@@ -1,5 +1,8 @@
 ---
 name: Scale
+text: אָנֹכִי עָפָר וָאֵפֶר / בִּשְׁבִילִי נִבְרָא הָעוֹלָם
+source: בראשית פרק י״ח פסוק כ״ז / משנה סנהדרין פרק ד משנה ה
+
 options:
   - price: 36
     photo: /images/products/scale.jpg

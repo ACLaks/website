@@ -1,5 +1,6 @@
 ---
 name: Yehi Ratzon
+text: יְהִי רָצוֹן
 options:
   - price: 54
     size: 6x8

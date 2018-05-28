@@ -1,5 +1,8 @@
 ---
 name: Ivdu Es Hashem B'simcha
+text: עִבְדוּ אֶת יְהוָה בְּשִׂמְחָה
+source: תהלים פרק ק׳ פסוק ב׳
+link: https://he.wikisource.org/wiki/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94:%D7%AA%D7%94%D7%9C%D7%99%D7%9D_%D7%A7_%D7%91
 options:
   - price: 32
     photo: /images/products/ivdue-acrylic.jpg

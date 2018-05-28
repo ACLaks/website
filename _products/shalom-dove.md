@@ -1,5 +1,6 @@
 ---
 name: Shalom Dove
+text: שָׁלוֹם
 options:
   - price: 32
     photo: /images/products/dove-acrylic.jpg

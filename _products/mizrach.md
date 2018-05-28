@@ -1,5 +1,6 @@
 ---
 name: Mizrach
+text: מִזְרָח
 options:
   - price: 36
     photo: /images/products/mizrach.jpg

@@ -1,5 +1,6 @@
 ---
 name: Gam Zeh Yaavor
+text: גַּם זֶה יַעֲבֹר‏‎
 options:
   - price: 36
     photo: /images/products/gam-zeh-yaavor.jpg
