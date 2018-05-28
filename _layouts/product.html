@@ -17,6 +17,7 @@ styles:
 			{% for option in page.options %}
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
+			<!-- Force the <a> to shrink to its content. -->
 			<div>
 				<a href="{{ photo }}"><img src="{{ photo }}" /></a>
 			</div>
@@ -40,13 +41,16 @@ styles:
 			{% for option in page.options %}
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
-			<h3 class="CenteredRow">
-				<i class="fas fa-ruler"></i>
-				<span>&nbsp; {{ option.size }}</span>
-				<span class="Spacer"></span>
-				<i class="fas fa-tag"></i>
-				<span>&nbsp; ${{ option.price | round: 1}}0</span>
-			</h3>
+			<!-- Prevent Slick from overriding display: flex. -->
+			<div>
+				<h3 class="CenteredRow PriceLine">
+					<i class="fas fa-ruler"></i>
+					<span>&nbsp; {{ option.size }}</span>
+					<span class="Spacer"></span>
+					<i class="fas fa-tag"></i>
+					<span>&nbsp; ${{ option.price | round: 1}}0</span>
+				</h3>
+			</div>
 			{% endfor %}
 			{% endfor %}
 		</div>
@@ -73,30 +77,43 @@ styles:
 	 ]'></div>
 <script>
 	var optionSizes = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
-	function goToOption(size, dontAnimate) {
+	function goToOption(size) {
 		var index = optionSizes.indexOf(size);
 		if (index >= 0)
-			$('.LargeSlider').slick('slickGoTo', index, dontAnimate);
+			$('.LargeSlider').slick('slickGoTo', index);
 	}
 
+	var initialSlide = 0
+	if (/^#?\d\w+$/.test(location.hash))
+		initialSlide = optionSizes.indexOf(location.hash.replace('#', ''));
 
 	$('.LargeSlider').slick({
 		arrows: false,
 		adaptiveHeight: false,
-		slidesToShow: 1,
-		asNavFor: '.NavSlider',
+		initialSlide: initialSlide,
+		asNavFor: '.NavSlider, .PriceSlider',
+	});
+
+	$('.PriceSlider').slick({
+		adaptiveHeight: false,
+		initialSlide: initialSlide,
+		variableWidth: false,
+		// Non-interactive:
+		arrows: false,
+		accessibility: false,
+		draggable: false,
+		swipe: false,
+		touchMove: false,
 	});
 	$('.NavSlider').slick({
 		arrows: false,
+		initialSlide: initialSlide,
 		asNavFor: '.LargeSlider',
 		focusOnSelect: true,
 		variableWidth: true,
 		draggable: false,
 		infinite: false,
 		slidesToScroll: 10,
-		slidesToShow: 1,
 	});
 
-	if (/^#?\d\w+$/.test(location.hash))
-		goToOption(location.hash.replace('#', ''), true);
 </script>
