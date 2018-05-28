@@ -1,4 +1,4 @@
-﻿---
+---
 layout: base
 styles:
   - /style/product.css
@@ -7,6 +7,10 @@ styles:
 ---
 <div class="Container">
 	<div class="Light PhotosContainer">
+		{% if page.text %}
+		<h1 dir="rtl">{{ page.text | xml_escape }}</h1>
+		{% endif %}
+
 		{% unless page.options.size > 1 or page.options[0].photos %}
 		<!-- No slider. -->
 		<a class="SingleImage" href="{{ page.options[0].photo }}">
@@ -86,7 +90,7 @@ styles:
 
 	$('.LargeSlider').slick({
 		arrows: false,
-		adaptiveHeight: false,
+		adaptiveHeight: true,
 		initialSlide: initialSlide,
 		asNavFor: '.PriceSlider',
 	});
