@@ -11,9 +11,10 @@
 }
 
 
-@mixin layout($imageWidth, $imageSpacing) {
+@mixin layout($imageWidth, $imageSpacing, $columnCount) {
 	.ProductColumns {
-		width: calc(2 * (#{$imageWidth} + #{$imageSpacing}));
+		// Set width to contain N columns including spacing before the first column.
+		width: calc(#{$columnCount} * (#{$imageWidth} + #{$imageSpacing}));
 		margin-left: -$imageSpacing; // Cancel out the margin from the first column.
 		.ProductThumbnail {
 			margin-left: $imageSpacing;

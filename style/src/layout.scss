@@ -62,12 +62,11 @@ body {
 	}
 }
 
-@mixin layout($imageWidth, $imageSpacing) {
-	// Make the logo width match the columns below it.
+@mixin layout($imageWidth, $imageSpacing, $columnCount) {
+	// Make the logo width match the columns below it, but only include spacing between columns.
 	#logo {
-		width: calc(2 * #{$imageWidth} + #{$imageSpacing});
+		width: calc(#{$columnCount} * (#{$imageWidth} + #{$imageSpacing}) - #{$imageSpacing});
 	}
-
 	// Make the padding around the center match the home photo spacing.
 	.Container .Light {
 		padding-right: $imageSpacing;
@@ -79,7 +78,17 @@ body {
 }
 
 @import "sizing";
+
 header.Container {
+	// This scales all content via em.
+	@media (max-width: 900px) {
+		font-size: 14px;
+	}
+
+	@media (max-width: 640px) {
+		font-size: 12px;
+	}
+
 	.Dark, .Light {
 		padding-top: 40px;
 	}
@@ -93,6 +102,10 @@ header.Container {
 
 	li {
 		flex-shrink: 0;
+
+		&:first-child {
+			margin-left: -16px;
+		}
 
 		+ li {
 			border-left: solid 1px $lightColor;
