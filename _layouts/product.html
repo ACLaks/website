@@ -1,19 +1,33 @@
 ﻿---
 layout: base
 styles:
+  - /style/product.css
   - /packages/slick.css
   - /packages/slick-theme.css
 ---
 <div class="Container">
-	<div class="Light">
+	<div class="Light PhotosContainer">
 		{% unless page.options.size > 1 or page.options[0].photos %}
-		<a class="Image" href="{{ page.options[0].photo }}"><img src="{{ page.options[0].photo }}" /></a>
+		<!-- No slider. -->
+		<a class="SingleImage" href="{{ page.options[0].photo }}">
+			<img src="{{ page.options[0].photo }}" />
+		</a>
 		{% else %}
-		<div class="Image Slider">
+		<div class="LargeSlider">
 			{% for option in page.options %}
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
-			<a href="{{ photo }}"><img src="{{ photo }}" /></a>
+			<div>
+				<a href="{{ photo }}"><img src="{{ photo }}" /></a>
+			</div>
+			{% endfor %}
+			{% endfor %}
+		</div>
+		<div class="NavSlider">
+			{% for option in page.options %}
+			{% assign photos = option.photos | default: option.photo %}
+			{% for photo in photos %}
+			<img src="{{ photo }}" />
 			{% endfor %}
 			{% endfor %}
 		</div>
@@ -49,10 +63,16 @@ styles:
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/packages/slick.min.js"></script>
 <script>
-	$('.Slider').slick({
-		dots: true,
+	$('.LargeSlider').slick({
 		arrows: false,
 		autoplay: true,
-		adaptiveHeight: true,
+		adaptiveHeight: false,
+		slidesToShow: 1,
+	});
+	$('.NavSlider').slick({
+		arrows: false,
+		asNavFor: '.LargeSlider',
+		variableWidth: true,
+		focusOnSelect: true,
 	});
 </script>

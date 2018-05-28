@@ -1,0 +1,30 @@
+﻿.PhotosContainer {
+
+	> * {
+		flex-shrink: 0;
+	}
+
+	.SingleImage img {
+		max-width: 35vw;
+		max-height: 35vw;
+	}
+
+	.LargeSlider {
+		img {
+			max-height: 400px;
+		}
+
+		margin-bottom: 24px;
+	}
+
+	.NavSlider {
+		img {
+			max-height: 72px;
+			width: auto;
+
+			+ img {
+				margin-left: 16px;
+			}
+		}
+	}
+}
