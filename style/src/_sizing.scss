@@ -22,3 +22,7 @@
 @media (max-width: 800px) {
 	@include layout(36vw, $smallThumbnailSpacing, 1);
 }
+
+@media (max-width: $collapsedWidth) {
+	@include layout(80vw, $smallThumbnailSpacing, 1);
+}

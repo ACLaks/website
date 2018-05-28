@@ -1,3 +1,4 @@
+@import "variables";
 $focusColor: #6411b0;
 
 .Container .PhotosContainer {
@@ -33,15 +34,19 @@ $focusColor: #6411b0;
 	}
 
 	.PhotoLinks {
+		$spacing: 16px;
+
+		// Cancel out the space below the last row.
+		margin-left: -$spacing;
+		margin-bottom: -$spacing;
+
 		img {
 			max-height: 72px;
 			width: auto;
 			cursor: pointer;
 			transition: box-shadow .3s ease;
-
-			+ img {
-				margin-left: 16px;
-			}
+			margin-bottom: $spacing;
+			margin-left: $spacing;
 
 			&:focus {
 				outline: solid 1px $focusColor;
@@ -51,6 +56,12 @@ $focusColor: #6411b0;
 				box-shadow: 0 0 6px 2px rgba(0,0,0, .4);
 			}
 		}
+	}
+}
+
+.Container .DescriptionSection {
+	@media (max-width: $collapsedWidth) {
+		text-align: justify;
 	}
 }
 
