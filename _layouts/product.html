@@ -8,7 +8,21 @@ styles:
 <div class="Container">
 	<div class="Light PhotosContainer">
 		{% if page.text %}
-		<h1 dir="rtl">{{ page.text | xml_escape }}</h1>
+		<h1 dir="rtl">
+			{{ page.text | xml_escape }}
+			<div class="Source">
+				&ndash;&nbsp;
+				{%- if page.link -%}
+				<a href="{{ page.link | xml_escape }}" target="_blank">
+					{%- endif -%}
+					{%- if page.source -%}
+					{{ page.source | xml_escape }}
+					{%- endif -%}
+					{%- if page.link -%}
+				</a>
+				{%- endif -%}
+			</div>
+		</h1>
 		{% endif %}
 
 		{% unless page.options.size > 1 or page.options[0].photos %}
