@@ -24,11 +24,11 @@ styles:
 			{% endfor %}
 			{% endfor %}
 		</div>
-		<div class="NavSlider">
+		<div class="PhotoLinks">
 			{% for option in page.options %}
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
-			<img src="{{ photo }}" />
+			<img tabindex="0" src="{{ photo }}" />
 			{% endfor %}
 			{% endfor %}
 		</div>
@@ -56,9 +56,11 @@ styles:
 		</div>
 		{% if page.options.size > 1 %}
 		<p class="Size">Available in:</p>
-		<ul>
+		<ul class="OptionList">
 			{% for option in page.options %}
-			<li>{{ option.size }}: ${{ option.price | round: 1}}0</li>
+			<li data-option-size="{{ option.size }}">
+				{{ option.size }}: ${{ option.price | round: 1}}0
+			</li>
 			{% endfor %}
 		</ul>
 		{% endif %}
@@ -77,11 +79,6 @@ styles:
 	 ]'></div>
 <script>
 	var optionSizes = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
-	function goToOption(size) {
-		var index = optionSizes.indexOf(size);
-		if (index >= 0)
-			$('.LargeSlider').slick('slickGoTo', index);
-	}
 
 	var initialSlide = 0
 	if (/^#?\d\w+$/.test(location.hash))
@@ -91,7 +88,7 @@ styles:
 		arrows: false,
 		adaptiveHeight: false,
 		initialSlide: initialSlide,
-		asNavFor: '.NavSlider, .PriceSlider',
+		asNavFor: '.PriceSlider',
 	});
 
 	$('.PriceSlider').slick({
@@ -105,15 +102,29 @@ styles:
 		swipe: false,
 		touchMove: false,
 	});
-	$('.NavSlider').slick({
-		arrows: false,
-		initialSlide: initialSlide,
-		asNavFor: '.LargeSlider',
-		focusOnSelect: true,
-		variableWidth: true,
-		draggable: false,
-		infinite: false,
-		slidesToScroll: 10,
+
+	// Control slider from other links:
+	function goToOption(size) {
+		var index = optionSizes.indexOf(size);
+		if (index >= 0) $('.LargeSlider').slick('slickGoTo', index);
+	}
+	$('[data-option-size]').click(function () {
+		goToOption(this.dataset.optionSize);
+	});
+	$('.PhotoLinks img').click(function () {
+		$('.LargeSlider').slick('slickGoTo', $(this).index());
+	}).keypress(function (e) {
+		if (e.which == 13) $('.LargeSlider').slick('slickGoTo', $(this).index());
 	});
 
+	// Sync other lists to slider:
+	function photoSelected(index) {
+		$('.PhotoLinks img')
+			.removeClass('Active')
+			.eq(index).addClass('Active');
+	}
+	photoSelected(initialSlide);
+	$('.LargeSlider').on('beforeChange', function (e, slick, currentSlide, nextSlide) {
+		photoSelected(nextSlide);
+	});
 </script>
