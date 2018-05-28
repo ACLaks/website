@@ -18,7 +18,7 @@ body {
 	}
 	// Stretch the footer to the bottom of the
 	// page, & align its content to the bottom
-	footer.Container {
+	footer.Container.Container { // Must be more specific than below.
 		flex-grow: 1;
 
 		> * {
@@ -69,12 +69,14 @@ body {
 		background: $lightColor;
 		color: $darkColor;
 		text-align: right;
+		justify-content: flex-end;
 	}
 
 	.Dark {
 		background: $darkColor;
 		color: $lightColor;
 		text-align: left;
+		justify-content: flex-start;
 	}
 }
 
@@ -119,6 +121,7 @@ header.Container {
 			width: auto;
 			padding: $smallThumbnailSpacing;
 			text-align: center;
+			justify-content: center;
 		}
 	}
 
