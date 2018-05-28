@@ -67,11 +67,16 @@ styles:
 		autoplay: true,
 		adaptiveHeight: false,
 		slidesToShow: 1,
+		asNavFor: '.NavSlider',
 	});
 	$('.NavSlider').slick({
 		arrows: false,
 		asNavFor: '.LargeSlider',
-		variableWidth: true,
 		focusOnSelect: true,
+		variableWidth: true,
+		draggable: false,
+		infinite: false,
+		slidesToScroll: 10,
+		slidesToShow: 1,
 	});
 </script>
