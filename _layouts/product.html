@@ -10,9 +10,9 @@ styles:
 		{% if page.text %}
 		<h1 dir="rtl">
 			{{ page.text | xml_escape }}
+			{%- if page.link -%}
 			<div class="Source">
 				&ndash;&nbsp;
-				{%- if page.link -%}
 				<a href="{{ page.link | xml_escape }}" target="_blank">
 					{%- endif -%}
 					{%- if page.source -%}
@@ -20,8 +20,8 @@ styles:
 					{%- endif -%}
 					{%- if page.link -%}
 				</a>
-				{%- endif -%}
 			</div>
+			{%- endif -%}
 		</h1>
 		{% endif %}
 
@@ -96,11 +96,11 @@ styles:
 {%- endfor -%}
 	 ]'></div>
 <script>
-	var optionSizes = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
+	var photoSizes = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
 
 	var initialSlide = 0
 	if (/^#?\d\w+$/.test(location.hash))
-		initialSlide = optionSizes.indexOf(location.hash.replace('#', ''));
+		initialSlide = photoSizes.indexOf(location.hash.replace('#', ''));
 
 	$('.LargeSlider').slick({
 		arrows: false,
@@ -123,7 +123,7 @@ styles:
 
 	// Control slider from other links:
 	function goToOption(size) {
-		var index = optionSizes.indexOf(size);
+		var index = photoSizes.indexOf(size);
 		if (index >= 0) $('.LargeSlider').slick('slickGoTo', index);
 	}
 	$('[data-option-size]').click(function () {
@@ -140,6 +140,12 @@ styles:
 		$('.PhotoLinks img')
 			.removeClass('Active')
 			.eq(index).addClass('Active');
+
+		// These bullets correspond to options, not photos, so the indexes are different.
+		$('.OptionList li')
+			.removeClass('Active')
+			.filter('[data-option-size="' + photoSizes[index] + '"]')
+			.addClass('Active');
 	}
 	photoSelected(initialSlide);
 	$('.LargeSlider').on('beforeChange', function (e, slick, currentSlide, nextSlide) {

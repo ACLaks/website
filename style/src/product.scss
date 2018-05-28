@@ -59,5 +59,10 @@ $focusColor: #6411b0;
 
 	li {
 		cursor: pointer;
+		margin-bottom: 8px;
+
+		&.Active {
+			font-weight: bold;
+		}
 	}
 }
