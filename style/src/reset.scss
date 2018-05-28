@@ -3,11 +3,16 @@
 body {
 	font-family: 'Overlock', Bellefair, sans-serif;
 	line-height: 1.2;
+	font-size: 20px;
 }
 
 * {
 	margin: 0;
 	padding: 0;
+}
+
+h1{
+	font-size: 32px;
 }
 
 h1,
@@ -19,7 +24,7 @@ h3 {
 }
 
 p {
-	margin-bottom: 16px;
+	margin-bottom: 1.2em;
 }
 
 a,
