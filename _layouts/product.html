@@ -11,7 +11,7 @@ styles:
 		<h1 dir="rtl">
 			{{ page.text | xml_escape }}
 			{%- if page.source -%}
-			<div class="Source">
+			<span class="Source">
 				&ndash;&nbsp;
 				{%- if page.link -%}
 				<a href="{{ page.link | xml_escape }}" target="_blank">
@@ -20,7 +20,7 @@ styles:
 					{%- if page.link -%}
 				</a>
 				{%- endif -%}
-			</div>
+			</span>
 			{%- endif -%}
 		</h1>
 		{% endif %}
