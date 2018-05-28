@@ -10,16 +10,16 @@ styles:
 		{% if page.text %}
 		<h1 dir="rtl">
 			{{ page.text | xml_escape }}
-			{%- if page.link -%}
+			{%- if page.source -%}
 			<div class="Source">
 				&ndash;&nbsp;
+				{%- if page.link -%}
 				<a href="{{ page.link | xml_escape }}" target="_blank">
 					{%- endif -%}
-					{%- if page.source -%}
 					{{ page.source | xml_escape }}
-					{%- endif -%}
 					{%- if page.link -%}
 				</a>
+				{%- endif -%}
 			</div>
 			{%- endif -%}
 		</h1>
