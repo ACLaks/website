@@ -1,0 +1,19 @@
+@import "variables";
+
+// At very wide widths, leave everything fixed.
+@include layout($maxThumbnailWidth, $largeThumbnailSpacing);
+
+// Once that fixed width reaches 17% of the window, switch to a fluid width.
+@media (max-width: $maxThumbnailWidth / .17) {
+	@include layout(17vw, $largeThumbnailSpacing);
+}
+
+// When things get narrower, expand the percentage to eat some white space.
+@media (max-width: 900px) {
+	@include layout(20vw, $largeThumbnailSpacing);
+}
+
+// When things get even smaller, reduce interior padding.
+@media (max-width: 840px) {
+	@include layout(20vw, 16px);
+}

@@ -69,6 +69,7 @@ styles: ['style/index.css']
 <script>
 	var grids = $('.ProductColumns').masonry({
 		itemSelector: '.ProductThumbnail',
+		percentPosition: true,
 	});
 	grids.imagesLoaded().progress(function () {
 		grids.masonry('layout');

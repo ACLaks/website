@@ -1,18 +1,26 @@
-$imageWidth: 240px;
-$imageSpacing: 24px;
+@import "variables";
 
 .ProductColumns {
-	width: 2 * ($imageWidth + $imageSpacing);
-	margin-left: -$imageSpacing; // Cancel out the margin from the first column.
 	display: inline-block;
 
 	.ProductThumbnail {
-		margin-left: $imageSpacing;
-		margin-top: $imageSpacing;
-		width: $imageWidth;
-
 		img {
 			display: block;
 		}
 	}
 }
+
+
+@mixin layout($imageWidth, $imageSpacing) {
+	.ProductColumns {
+		width: calc(2 * (#{$imageWidth} + #{$imageSpacing}));
+		margin-left: -$imageSpacing; // Cancel out the margin from the first column.
+		.ProductThumbnail {
+			margin-left: $imageSpacing;
+			margin-top: $imageSpacing;
+			width: $imageWidth;
+		}
+	}
+}
+
+@import "sizing";
