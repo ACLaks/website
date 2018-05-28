@@ -18,7 +18,7 @@ body {
 	}
 	// Stretch the footer to the bottom of the
 	// page, & align its content to the bottom
-	.Container.Footer {
+	footer.Container {
 		flex-grow: 1;
 
 		> * {

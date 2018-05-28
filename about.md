@@ -1,7 +1,7 @@
-﻿---
+---
 ---
 
-<header class="Container">
+<div class="Container">
 	<div class="Light">
 
 # About
@@ -15,5 +15,4 @@ You can also come to Elizabeth and buy directly; call to set up an appointment. 
 
 _Customized and personalized art available upon request_
 	</div>
-</header>
-
+</div>
