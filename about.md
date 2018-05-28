@@ -2,7 +2,7 @@
 ---
 
 <div class="Container">
-	<div class="Light">
+<div class="Light">
 
 # About
 

@@ -17,7 +17,9 @@ github_username:  AceArts
 repository: AceArts/website
 
 # Build settings
-markdown: CommonMarkGhPages
+kramdown:
+    parse_block_html: true
+
 sass:
     sass_dir: style
 
