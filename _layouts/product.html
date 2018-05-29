@@ -37,7 +37,9 @@ styles:
 			{% for photo in photos %}
 			<!-- Force the <a> to shrink to its content. -->
 			<div>
-				<a href="{{ photo }}"><img src="{{ photo }}" /></a>
+				<a href="{{ photo }}">
+					<img src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.400h.jpg' }}" />
+				</a>
 			</div>
 			{% endfor %}
 			{% endfor %}
@@ -46,14 +48,13 @@ styles:
 			{% for option in page.options %}
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
-			<img tabindex="0" src="{{ photo }}" />
+			<img tabindex="0" src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.72h.jpg' }}" />
 			{% endfor %}
 			{% endfor %}
 		</div>
 		{% endunless %}
 	</div>
 	<div class="Dark DescriptionSection">
-
 		<h1>{{ page.name | xml_escape }}</h1>
 		<div class="PriceSlider">
 			{% for option in page.options %}
@@ -72,7 +73,6 @@ styles:
 			{% endfor %}
 			{% endfor %}
 		</div>
-
 		{{ content }}
 		{% if page.options.size > 1 %}
 		<p class="Size">Available in:</p>
