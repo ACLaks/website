@@ -10,4 +10,6 @@ options:
       - /images/products/yehi-ratzon-silver.jpg
 ---
 
-Make your candles table stand out with this unique yet functional text.
+Enhance your Shabbos and Yom Tov candle-lighting experience with this unique yet functional art. 
+
+Contains the traditional text.

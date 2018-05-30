@@ -15,4 +15,6 @@ options:
     theme: light
 ---
 
-Emojies have become a big part of our lives, so I combined this smiley with a quote that reminds us to serve Hashem with happiness.
+Emojies have become a big part of our lives. This bright and cheerful smiley reminds us to serve Hashem with happiness.
+
+Note that each piece is cut from a unique paper. No two exactly alike.

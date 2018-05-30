@@ -11,4 +11,6 @@ options:
     size: 12x18
 ---
 
-This convenient laminated mat is perfect both to read Havdala from and to catch your candle drippings and wine spills.
+Read Havdala from this convenient laminated mat - and catch your candle drippings and wine spills as well.
+
+Available with either the Ashkenazi or Eidut Hamizrach text.

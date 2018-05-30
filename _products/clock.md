@@ -22,4 +22,4 @@ options:
     theme: light
 ---
 
-This piece demonstrates the stark contrast between now and later. 
+This piece demonstrates the stark contrast between the present and the future. 
