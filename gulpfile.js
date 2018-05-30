@@ -20,6 +20,10 @@ const server = require('gulp-server-livereload');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
+const changed = require("gulp-changed");
+const rename = require("gulp-rename");
+const imageResize = require('gulp-image-resize');
+
 gulp.task('packages', function () {
 	function npmSrc(srcs) {
 		return gulp.src(srcs.map(p => './node_modules/' + p));
@@ -67,6 +71,7 @@ gulp.task('default', function () {
 			.pipe(gulp.dest('./style'))
 	]);
 });
+
 gulp.task('jekyll-watch', ['packages'], function (realDone) {
 	function done(...args) {
 		realDone(...args);
@@ -90,16 +95,27 @@ gulp.task('jekyll-watch', ['packages'], function (realDone) {
 		jekyll.kill();
 		process.exit();
 	});
+
+	// Catch Ctrl+C before the batch file.  https://stackoverflow.com/a/14861513/34397
+	if (process.platform === "win32") {
+		var rl = require("readline").createInterface({
+			input: process.stdin,
+			output: process.stdout
+		});
+
+		rl.on("SIGINT", function () {
+			process.emit("SIGINT");
+		});
+	}
 });
 
-// Make sure the Jekyll watcher starts successfully first.
+// Make sure the Jekyll watcher builds successfully first.
 gulp.task('watch', ['jekyll-watch'], function () {
-	watch('./style/src/*.scss', batch(function (events, done) {
-		gulp.start('default', done);
-	}));
+	watch('./style/src/*.scss', batch((events, done) => gulp.start('default', done)));
+	watch(productImages, batch((events, done) => gulp.start('thumbnails', done)));
 });
 
-gulp.task('server', ['default', 'watch'], function () {
+gulp.task('server', ['default', 'watch', 'thumbnails'], function () {
 	gulp.src('./_site')
 		.pipe(server({
 			livereload: {
@@ -110,19 +126,27 @@ gulp.task('server', ['default', 'watch'], function () {
 		}));
 });
 
+const productImages = './images/products/*.jpg';
+gulp.task('thumbnails', () => {
+	const dest = './images/products/thumbnails/';
+
+	function resizeTo(opts) {
+		if (typeof opts === 'number') opts = { width: opts };
+		return gulp.src(productImages)
+			.pipe(rename(path => { path.basename += '.' + (opts.width || (opts.height + 'h')); }))
+			.pipe(changed(dest))
+			.pipe(imageResize({ ...opts, noProfile: true }))
+			.pipe(gulp.dest(dest));
+	}
+
+	return eventStream.merge([
+		resizeTo(270),				// Thumbnails in home page at full width.
+		resizeTo({ height: 72 }),	// Nav thumbnails in product page.
+		resizeTo({ height: 400 }),	// Full-size preview in product page.
+	]);
+})
+
 
 function generateFile(cb) {
 	return through.obj((file, encoding, outerCallback) => outerCallback(null, cb(file)));
 };
-
-// Catch Ctrl+C before the batch file.  https://stackoverflow.com/a/14861513/34397
-if (process.platform === "win32") {
-	var rl = require("readline").createInterface({
-		input: process.stdin,
-		output: process.stdout
-	});
-
-	rl.on("SIGINT", function () {
-		process.emit("SIGINT");
-	});
-}

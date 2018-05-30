@@ -52,7 +52,7 @@ styles: ['style/index.css']
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
 			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}.html#{{ option.size | slugify }}">
-				<img src="{{ photo }}"
+				<img src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.270.jpg' }}"
 					 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
 			</a>
 			{% endfor %}
