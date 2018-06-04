@@ -9,6 +9,13 @@ options:
     photo: /images/products/yerushalayim-small.jpg
     size: 8x10
     theme: light
+    details: Black paper floating in a black frame. Wall mount.
+
+  - price: 54
+    photo: /images/products/yerushalayim-large.jpg
+    size: 11x14
+    theme: dark
+    details: Silver paper floating in a black frame. Wall mount.
 ---
 
 Many people feel it is appropriate have a reminder of our loss of the Bais Hamikdash. This striking skyline stands boldly on your wall to keep Yerushalayim perpetually on the mind.

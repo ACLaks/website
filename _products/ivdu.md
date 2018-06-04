@@ -8,11 +8,15 @@ options:
     photo: /images/products/ivdue-acrylic.jpg
     size: 8x8
     theme: dark
+    details: Yellow watercolor paper floating in an acrylic tabletop frame.
 
   - price: 54
     photo: /images/products/ivdue.jpg
     size: 12x12
     theme: light
+    details: Yellow watercolor paper floating in a black frame. Wall mount.
 ---
 
-Emojies have become a big part of our lives, so I combined this smiley with a quote that reminds us to serve Hashem with happiness.
+Emojies have become a big part of our lives. This bright and cheerful smiley reminds us to serve Hashem with happiness.
+
+Note that each piece is cut from a unique paper. No two exactly alike.

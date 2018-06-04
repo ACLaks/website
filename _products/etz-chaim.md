@@ -8,6 +8,15 @@ options:
     photo: /images/products/etz-chaim.jpg
     size: 6x8
     theme: dark
+    details: Parchment textured paper floating in a black frame. Wall mount.
+    is_duplicate: true
+
+  - price: 54
+    photo: /images/products/etz-chaim-large.jpg
+    size: 11x14
+    theme: dark
+    details: Parchment textured paper floating in a bronze tabletop frame.
+    is_duplicate: true
 ---
 
 This graphical reminder of the strength of Torah will grace your Sefarim shelf and uplift your learning.

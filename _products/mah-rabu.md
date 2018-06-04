@@ -8,9 +8,19 @@ options:
     size: 8x10
     photo: /images/products/mah-rabu.jpg
     theme: light
+    details: Bright pink watercolor paper floating in a black frame. Wall mount.
 
   - price: 54
     size: 11x14 
+    photo: /images/products/mah-rabu-1.jpg
+    theme: dark
+    details: Green and yellow watercolor paper floating in a black frame. Wall mount.
+
+  - price: 60
+    size: 11x14 
+    photo: /images/products/mah-rabu-2.jpg
+    theme: dark
+    details: Blue/green/purple watercolor paper surrounded by white paper, floating in a black frame. Wall mount.
 ---
 
 I have always loved the way this quote perfectly expresses the beauty of nature. This piece reflects my love of flowers and their variety of gorgeous colorings.

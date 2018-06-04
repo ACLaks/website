@@ -8,18 +8,21 @@ options:
     photo: /images/products/clock-small-black.jpg
     size: 8x8
     theme: light
+    details: Black paper floating in a black frame. Wall mount.
 
   - price: 54
     is_duplicate: true
     photo: /images/products/clock-standing.jpg
     size: 6x8
     theme: dark
+    details: White linen paper floating in a silver tabletop frame.
 
   - price: 54
     is_duplicate: true
     photo: /images/products/clock-large-silver.jpg
     size: 12x12
     theme: light
+    details: Silver paper floating in a black frame. Wall mount.
 ---
 
-This piece demonstrates the stark contrast between now and later. 
+This piece demonstrates the stark contrast between the present and the future. 

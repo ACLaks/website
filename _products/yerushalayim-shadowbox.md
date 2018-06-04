@@ -9,6 +9,7 @@ options:
     photo: /images/products/yerushalayim-shadowbox.jpg
     size: 8x10
     theme: dark
+    details: Three layers of paper - black, gold and blue marble - with space between them to create a three dimensional scene. Works both as tabletop and wall mount.
 ---
 
 This unique, 3D cityscape can grace your wall or shelf to keep Yerushalayim in your thoughts.
