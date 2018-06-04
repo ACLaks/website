@@ -79,7 +79,10 @@ styles:
 		<ul class="OptionList">
 			{% for option in page.options %}
 			<li data-option-size="{{ option.size }}">
-				{{ option.size }}: ${{ option.price | round: 1}}0
+				<span class="Title">{{ option.size }}: ${{ option.price | round: 1}}0</span><br />
+				<i>
+					{{ option.details | xml_escape }}
+				</i>
 			</li>
 			{% endfor %}
 		</ul>

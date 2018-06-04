@@ -72,9 +72,14 @@ $focusColor: #6411b0;
 	li {
 		cursor: pointer;
 		margin-bottom: 8px;
+		list-style-type: circle;
 
 		&.Active {
-			font-weight: bold;
+			list-style-type: disc;
+
+			.Title {
+				font-weight: bold;
+			}
 		}
 	}
 }
