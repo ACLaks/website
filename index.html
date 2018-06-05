@@ -47,11 +47,12 @@ styles: ['style/index.css']
 		<div class="ProductColumns">
 			{% for product in site.products %}
 			{% for option in product.options %}
+			{% assign index = forloop.index %}
 			{% if option.theme == theme %}
 
 			{% assign photos = option.photos | default: option.photo %}
 			{% for photo in photos %}
-			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}.html#{{ option.size | slugify }}">
+			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}.html#{{ option.size | slugify }}-{{ index }}">
 				<img src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.270.jpg' }}"
 					 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
 			</a>

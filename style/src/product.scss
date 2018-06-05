@@ -13,6 +13,7 @@ $focusColor: #6411b0;
 	}
 
 	.Source {
+		display: block;
 		text-align: right;
 		font-size: 18px;
 		line-height: 27px;
@@ -71,9 +72,14 @@ $focusColor: #6411b0;
 	li {
 		cursor: pointer;
 		margin-bottom: 8px;
+		list-style-type: circle;
 
 		&.Active {
-			font-weight: bold;
+			list-style-type: disc;
+
+			.Title {
+				font-weight: bold;
+			}
 		}
 	}
 }

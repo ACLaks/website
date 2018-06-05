@@ -11,7 +11,7 @@ styles:
 		<h1 dir="rtl">
 			{{ page.text | xml_escape }}
 			{%- if page.source -%}
-			<div class="Source">
+			<span class="Source">
 				&ndash;&nbsp;
 				{%- if page.link -%}
 				<a href="{{ page.link | xml_escape }}" target="_blank">
@@ -20,7 +20,7 @@ styles:
 					{%- if page.link -%}
 				</a>
 				{%- endif -%}
-			</div>
+			</span>
 			{%- endif -%}
 		</h1>
 		{% endif %}
@@ -78,11 +78,18 @@ styles:
 		<p class="Size">Available in:</p>
 		<ul class="OptionList">
 			{% for option in page.options %}
-			<li data-option-size="{{ option.size }}">
-				{{ option.size }}: ${{ option.price | round: 1}}0
+			<li data-option-id="{{ option.size | slugify }}-{{ forloop.index }}">
+				<span class="Title">{{ option.size }}: ${{ option.price | round: 1}}0</span><br />
+				<i>
+					{{ option.details | xml_escape }}
+				</i>
 			</li>
 			{% endfor %}
 		</ul>
+		{% else %}
+		<i>
+			{{ page.options.first.details | xml_escape }}
+		</i>
 		{% endif %}
 	</div>
 </div>
@@ -90,18 +97,19 @@ styles:
 <script src="/packages/slick.min.js"></script>
 <div class="PhotoSizes" data-sizes='[
 {%- for option in page.options -%}
+	{%- assign index = forloop.index -%}
 	{%- assign photos = option.photos | default: option.photo -%}
 	{%- for photo in photos -%}
-		 "{{ option.size }}",
+		 "{{ option.size | slugify }}-{{ index }}",
 	{%- endfor -%}
 {%- endfor -%}
 	 ]'></div>
 <script>
-	var photoSizes = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
+	var photoIds = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
 
 	var initialSlide = 0
-	if (/^#?\d\w+$/.test(location.hash))
-		initialSlide = photoSizes.indexOf(location.hash.replace('#', ''));
+	if (/^#?\d[\w-]+$/.test(location.hash))
+		initialSlide = photoIds.indexOf(location.hash.replace('#', ''));
 
 	$('.LargeSlider').slick({
 		arrows: false,
@@ -123,12 +131,12 @@ styles:
 	});
 
 	// Control slider from other links:
-	function goToOption(size) {
-		var index = photoSizes.indexOf(size);
+	function goToOption(id) {
+		var index = photoIds.indexOf(id);
 		if (index >= 0) $('.LargeSlider').slick('slickGoTo', index);
 	}
-	$('[data-option-size]').click(function () {
-		goToOption(this.dataset.optionSize);
+	$('[data-option-id]').click(function () {
+		goToOption(this.dataset.optionId);
 	});
 	$('.PhotoLinks img').click(function () {
 		$('.LargeSlider').slick('slickGoTo', $(this).index());
@@ -138,6 +146,8 @@ styles:
 
 	// Sync other lists to slider:
 	function photoSelected(index) {
+		location.replace('#' + photoIds[index]);
+
 		$('.PhotoLinks img')
 			.removeClass('Active')
 			.eq(index).addClass('Active');
@@ -145,7 +155,7 @@ styles:
 		// These bullets correspond to options, not photos, so the indexes are different.
 		$('.OptionList li')
 			.removeClass('Active')
-			.filter('[data-option-size="' + photoSizes[index] + '"]')
+			.filter('[data-option-id="' + photoIds[index] + '"]')
 			.addClass('Active');
 	}
 	photoSelected(initialSlide);
