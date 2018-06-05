@@ -14,4 +14,4 @@ options:
 
 This laminated card makes saying Kiddush easy, with no pages to flip and no worries of spills. 
 
-Contains the standard Ashkenaz/Sefard text for both Friday night and Shabbos day.
+Contains the standard Ashkenaz/Sefardi text for both Friday night and Shabbos day.

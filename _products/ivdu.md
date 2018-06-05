@@ -6,17 +6,19 @@ link: https://he.wikisource.org/wiki/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%94:
 options:
   - price: 32
     photo: /images/products/ivdue-acrylic.jpg
-    size: 8x8
+    size: 5x7
     theme: dark
     details: Yellow watercolor paper floating in an acrylic tabletop frame.
+    is_duplicate: true
 
-  - price: 54
+  - price: 32
     photo: /images/products/ivdue.jpg
-    size: 12x12
+    size: 8x8
     theme: light
     details: Yellow watercolor paper floating in a black frame. Wall mount.
+    is_duplicate: true
 ---
 
-Emojies have become a big part of our lives. This bright and cheerful smiley reminds us to serve Hashem with happiness.
+Emojis have become a big part of our lives. This bright and cheerful smiley reminds us to serve Hashem with happiness.
 
 Note that each piece is cut from a unique paper. No two exactly alike.
