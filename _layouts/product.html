@@ -146,6 +146,8 @@ styles:
 
 	// Sync other lists to slider:
 	function photoSelected(index) {
+		location.replace('#' + photoIds[index]);
+
 		$('.PhotoLinks img')
 			.removeClass('Active')
 			.eq(index).addClass('Active');
