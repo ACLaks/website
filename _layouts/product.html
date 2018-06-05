@@ -86,6 +86,10 @@ styles:
 			</li>
 			{% endfor %}
 		</ul>
+		{% else %}
+		<i>
+			{{ page.options.first.details | xml_escape }}
+		</i>
 		{% endif %}
 	</div>
 </div>
