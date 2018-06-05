@@ -1,0 +1,26 @@
+---
+sections:
+  - title: Contact us
+    content: Call or email Aviva Chana to inquire about custom designs, personalization options, bulk discounts, or anything else.
+
+  - title: Email
+    content: Aviva@AceArts.net
+
+  - title: Phone
+    content: (908) 845 – 5569
+  - title: Address
+    content: |
+        801 N Broad St. #1A
+        Elizabeth, NJ 07208
+---
+
+{% for section in page.sections %}
+	<div class="Container">
+		<div class="Light">
+			<h1>{{ section.title | xml_escape }}</h1>
+		</div>
+		<div class="Dark">
+			{{ section.content | xml_escape | newline_to_br }}
+		</div>
+	</div>
+{% endfor %}
