@@ -5,6 +5,8 @@ styles:
   - /packages/slick.css
   - /packages/slick-theme.css
 ---
+{% assign empty_array = "" | split: ',' %}
+
 <div class="Container">
 	<div class="Light PhotosContainer">
 		{% if page.text %}
@@ -33,7 +35,8 @@ styles:
 		{% else %}
 		<div class="LargeSlider">
 			{% for option in page.options %}
-			{% assign photos = option.photos | default: option.photo %}
+			{% assign additional_photos = option.additional_photos | default: empty_array %}
+			{% assign photos = option.photos | default: option.photo | concat: additional_photos %}
 			{% for photo in photos %}
 			<!-- Force the <a> to shrink to its content. -->
 			<div>
@@ -46,7 +49,8 @@ styles:
 		</div>
 		<div class="PhotoLinks">
 			{% for option in page.options %}
-			{% assign photos = option.photos | default: option.photo %}
+			{% assign additional_photos = option.additional_photos | default: empty_array %}
+			{% assign photos = option.photos | default: option.photo | concat: additional_photos %}
 			{% for photo in photos %}
 			<img tabindex="0" src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.72h.jpg' }}" />
 			{% endfor %}
@@ -58,7 +62,8 @@ styles:
 		<h1>{{ page.name | xml_escape }}</h1>
 		<div class="PriceSlider">
 			{% for option in page.options %}
-			{% assign photos = option.photos | default: option.photo %}
+			{% assign additional_photos = option.additional_photos | default: empty_array %}
+			{% assign photos = option.photos | default: option.photo | concat: additional_photos %}
 			{% for photo in photos %}
 			<!-- Prevent Slick from overriding display: flex. -->
 			<div>
@@ -98,7 +103,8 @@ styles:
 <div class="PhotoSizes" data-sizes='[
 {%- for option in page.options -%}
 	{%- assign index = forloop.index -%}
-	{%- assign photos = option.photos | default: option.photo -%}
+	{%- assign additional_photos = option.additional_photos | default: empty_array -%}
+	{%- assign photos = option.photos | default: option.photo | concat: additional_photos -%}
 	{%- for photo in photos -%}
 		 "{{ option.size | slugify }}-{{ index }}",
 	{%- endfor -%}
