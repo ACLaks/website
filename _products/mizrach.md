@@ -5,7 +5,7 @@ options:
   - price: 36
     photo: /images/products/mizrach.jpg
     size: 8x10
-    theme: dark
+    theme: light
     details: Parchment colored paper floating in a black frame. Wall mount.
 
   - price: 54

@@ -21,7 +21,7 @@ options:
     is_duplicate: true
     photo: /images/products/clock-large-silver.jpg
     size: 12x12
-    theme: light
+    theme: dark
     details: Silver paper floating in a black frame. Wall mount.
 ---
 
