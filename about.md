@@ -9,9 +9,9 @@
 
 For more information, email <a href="mailto:Aviva@AceArts.net">Aviva@AceArts.net</a> or call Aviva Chana at (908) 845 - 5569.
 
-You can also come to Elizabeth and buy directly; call to set up an appointment.  We accept credit cards.
+Buy direct in Elizabeth, NJ; call to set up an appointment. Credit cards accepted.
 
-_Customized and personalized art available upon request_
+_Customized and personalized art available upon request._
 
 </div>
 </div>
