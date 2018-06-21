@@ -10,7 +10,9 @@ options:
 
   - price: 54
     size: 11x14 
-    photo: /images/products/mah-rabu-1.jpg
+    photos: 
+      - /images/products/mah-rabu-1.jpg
+      - /images/products/mah-rabu-7.jpg
     theme: light
     details: Available in a choice of colorful watercolor papers, floating in a black frame. Wall mount.
 

@@ -9,6 +9,8 @@ options:
     details: Blue watercolor paper floating in an acrylic tabletop frame.
 
   - price: 36
+    photo: /images/products/shalom-dove-small.jpg
+    theme: dark
     size: 8x8
     details: White linen paper surrounded by a circle of light blue marble paper, floating in a black frame. Wall mount.
 
