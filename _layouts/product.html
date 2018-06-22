@@ -5,11 +5,25 @@ styles:
   - /packages/slick.css
   - /packages/slick-theme.css
 ---
-{% assign empty_array = "" | split: ',' %}
+{%- assign empty_array = "" | split: ',' -%}
+{%- assign all_photos = "" | split: ',' -%}
+{%- assign all_options = "" | split: ',' -%}
+{%- assign all_option_ids = "" | split: ',' -%}
+
+{%- for option in page.options -%}
+	{%- assign additional_photos = option.additional_photos | default: empty_array -%}
+	{%- assign photos = option.photos | default: option.photo | concat: additional_photos -%}
+	{%- capture option_id %}{{ option.size | slugify }}-{{ forloop.index }}{%- endcapture -%}
+	{%- for photo in photos -%}
+		{%- assign all_photos = all_photos | push: photo -%}
+		{%- assign all_options = all_options | push: option -%}
+		{%- assign all_option_ids = all_option_ids | push: option_id -%}
+	{%- endfor -%}
+{%- endfor -%}
 
 <div class="Container">
 	<div class="Light PhotosContainer">
-		{% if page.text %}
+		{%- if page.text -%}
 		<h1 dir="rtl">
 			{{ page.text | xml_escape }}
 			{%- if page.source -%}
@@ -25,47 +39,36 @@ styles:
 			</span>
 			{%- endif -%}
 		</h1>
-		{% endif %}
+		{%- endif -%}
 
-		{% unless page.options.size > 1 or page.options[0].photos %}
+		{%- if all_photos.size == 1 -%}
 		<!-- No slider. -->
 		<a class="SingleImage" href="{{ page.options[0].photo }}">
 			<img src="{{ page.options[0].photo }}" />
 		</a>
-		{% else %}
+		{%- else -%}
 		<div class="LargeSlider">
-			{% for option in page.options %}
-			{% assign additional_photos = option.additional_photos | default: empty_array %}
-			{% assign photos = option.photos | default: option.photo | concat: additional_photos %}
-			{% for photo in photos %}
-			<!-- Force the <a> to shrink to its content. -->
+			<!-- Outer <div> forces the <a> to shrink to its content. -->
+			{%- for photo in all_photos -%}
 			<div>
 				<a href="{{ photo }}">
 					<img src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.400h.jpg' }}" />
 				</a>
 			</div>
 			{% endfor %}
-			{% endfor %}
 		</div>
 		<div class="PhotoLinks">
-			{% for option in page.options %}
-			{% assign additional_photos = option.additional_photos | default: empty_array %}
-			{% assign photos = option.photos | default: option.photo | concat: additional_photos %}
-			{% for photo in photos %}
+			{%- for photo in all_photos -%}
 			<img tabindex="0" src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.72h.jpg' }}" />
 			{% endfor %}
-			{% endfor %}
 		</div>
-		{% endunless %}
+		{%- endif -%}
 	</div>
 	<div class="Dark DescriptionSection">
 		<h1>{{ page.name | xml_escape }}</h1>
 		<div class="PriceSlider">
-			{% for option in page.options %}
-			{% assign additional_photos = option.additional_photos | default: empty_array %}
-			{% assign photos = option.photos | default: option.photo | concat: additional_photos %}
-			{% for photo in photos %}
-			<!-- Prevent Slick from overriding display: flex. -->
+			<!-- Outer <div> prevents Slick from overriding display: flex. -->
+			{%- for option in all_options -%}
 			<div>
 				<h3 class="CenteredRow PriceLine">
 					<i class="fas fa-ruler"></i>
@@ -76,13 +79,12 @@ styles:
 				</h3>
 			</div>
 			{% endfor %}
-			{% endfor %}
 		</div>
 		{{ content }}
-		{% if page.options.size > 1 %}
+		{%- if page.options.size > 1 -%}
 		<p class="Size">Available in:</p>
 		<ul class="OptionList">
-			{% for option in page.options %}
+			{%- for option in page.options -%}
 			<li data-option-id="{{ option.size | slugify }}-{{ forloop.index }}">
 				<span class="Title">{{ option.size }}: ${{ option.price | round: 1}}0</span><br />
 				<i>
@@ -91,27 +93,18 @@ styles:
 			</li>
 			{% endfor %}
 		</ul>
-		{% else %}
+		{%- else -%}
 		<i>
 			{{ page.options.first.details | xml_escape }}
 		</i>
-		{% endif %}
+		{%- endif -%}
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/packages/slick.min.js"></script>
-<div class="PhotoSizes" data-sizes='[
-{%- for option in page.options -%}
-	{%- assign index = forloop.index -%}
-	{%- assign additional_photos = option.additional_photos | default: empty_array -%}
-	{%- assign photos = option.photos | default: option.photo | concat: additional_photos -%}
-	{%- for photo in photos -%}
-		 "{{ option.size | slugify }}-{{ index }}",
-	{%- endfor -%}
-{%- endfor -%}
-	 ]'></div>
+<div class="PhotoSizes" data-sizes='{{ all_option_ids | jsonify | xml_escape }}'></div>
 <script>
-	var photoIds = JSON.parse($('.PhotoSizes').data('sizes').replace(/,]$/, ']'));
+	var photoIds = $('.PhotoSizes').data('sizes');
 
 	var initialSlide = 0
 	if (/^#?\d[\w-]+$/.test(location.hash))
