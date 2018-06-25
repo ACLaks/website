@@ -11,8 +11,17 @@ styles:
 {%- assign all_option_ids = "" | split: ',' -%}
 
 {%- for option in page.options -%}
+
+	{%- if option.photo -%}
+		{%- assign photos = option.photo -%}
+	{%- else -%}
+		{%- assign dark_photos = option.dark_photos | default: empty_array -%}
+		{%- assign photos = option.light_photos | concat: dark_photos -%}
+	{%- endif -%}
+
 	{%- assign additional_photos = option.additional_photos | default: empty_array -%}
-	{%- assign photos = option.photos | default: option.photo | concat: additional_photos -%}
+	{%- assign photos = photos | concat: additional_photos -%}
+
 	{%- capture option_id %}{{ option.size | slugify }}-{{ forloop.index }}{%- endcapture -%}
 	{%- for photo in photos -%}
 		{%- assign all_photos = all_photos | push: photo -%}
