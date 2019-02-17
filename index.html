@@ -12,10 +12,15 @@ styles: ['style/index.css']
 <li>{{ product.relative_path }}, {{ option.size }}: Cannot specify photo: and photos:.</li>
 				{% endif %}
 
-				{% if option.photo != nil or option.photos != nil %}
+				{% if option.photo %}
 					{% unless page.themes contains option.theme %}
 <li>{{ product.relative_path }}, {{ option.size }}: Options with photos must have theme: light or dark.</li>
 					{% endunless %}
+				{% endif %}
+				{% if option.light_photos or option.dark_photos %}
+					{% if option.theme or option.photo %}
+<li>{{ product.relative_path }}, {{ option.size }}: Options with <i>theme</i>_photos collections must not specify photo: or theme:.</li>
+					{% endif %}
 				{% endif %}
 			{% endfor %}
 
@@ -46,20 +51,24 @@ styles: ['style/index.css']
 	<div class="{{ theme | capitalize }}">
 		<div class="ProductColumns">
 			{% for product in site.products %}
-			{% for option in product.options %}
-			{% assign index = forloop.index %}
-			{% if option.theme == theme %}
+			{%- for option in product.options -%}
+			{%- assign index = forloop.index -%}
 
-			{% assign photos = option.photos | default: option.photo %}
+			{%- if option.photo and option.theme == theme -%}
+			{%- assign photos = option.photo -%}
+			{%- else -%}
+			{%- assign photos_property = theme | append: '_photos' -%}
+			{%- assign photos = option[photos_property] -%}
+			{%- endif -%}
+
 			{% for photo in photos %}
 			<a class="ProductThumbnail" href="/products/{{ product.title | slugify }}.html#{{ option.size | slugify }}-{{ index }}">
 				<img src="{{ photo | replace: 'products/', 'products/thumbnails/' | replace: '.jpg', '.270.jpg' }}"
 					 title="{{ product.name | xml_escape }}, {{ option.size | xml_escape }}">
 			</a>
-			{% endfor %}
-			{% endif %}
-			{% endfor %}
-			{% endfor %}
+			{%- endfor -%}
+			{%- endfor -%}
+			{%- endfor -%}
 		</div>
 	</div>
 	{% endfor %}

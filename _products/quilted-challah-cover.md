@@ -4,11 +4,11 @@ text:
 
 options:
   - price: 54
-    photos:
-     - /images/products/challah-cover-1-front.jpg
+    photo: /images/products/challah-cover-1-front.jpg
+    theme: light
+    additional_photos:
      - /images/products/challah-cover-1-back.jpg
     size: 19.5" x 15.75"
-    theme: light
     details: Black/gold/white patterned fabric quilted together. 
 ---
 
