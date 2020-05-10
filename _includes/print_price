@@ -1,0 +1,6 @@
+{% assign rounded = include.price | ceil %}
+{%- if rounded == include.price -%}
+    ${{ include.price }}
+{%- else -%}
+    ${{ include.price }}0
+{%- endif -%}
