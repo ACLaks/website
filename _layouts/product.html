@@ -75,20 +75,16 @@ styles:
 	</div>
 	<div class="Dark DescriptionSection">
 		<h1>{{ page.name | xml_escape }}</h1>
+		{%- if page.options.size == 1 -%}
+			<div>{% include price_line.html option=page.options.first %}</div>
+		{%- else -%}
 		<div class="PriceSlider">
 			<!-- Outer <div> prevents Slick from overriding display: flex. -->
 			{%- for option in all_options -%}
-			<div>
-				<h3 class="CenteredRow PriceLine">
-					<i class="fas fa-ruler"></i>
-					<span>&nbsp; {{ option.size }}</span>
-					<span class="Spacer"></span>
-					<i class="fas fa-tag"></i>
-					<span>&nbsp; {%- include print_price price=option.price -%}</span>
-				</h3>
-			</div>
+			<div>{% include price_line.html option=option %}</div>
 			{% endfor %}
 		</div>
+		{%- endif -%}
 		{{ content }}
 		{%- if page.options.size > 1 -%}
 		<p class="Size">Available in:</p>
@@ -122,7 +118,7 @@ styles:
 		arrows: false,
 		adaptiveHeight: true,
 		initialSlide: initialSlide,
-		asNavFor: '.PriceSlider',
+		asNavFor: $('.PriceSlider').length ? '.PriceSlider' : null,
 	});
 
 	$('.PriceSlider').slick({
