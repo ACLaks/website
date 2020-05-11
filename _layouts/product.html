@@ -84,7 +84,7 @@ styles:
 					<span>&nbsp; {{ option.size }}</span>
 					<span class="Spacer"></span>
 					<i class="fas fa-tag"></i>
-					<span>&nbsp; {% include print_price price=option.price %}</span>
+					<span>&nbsp; {%- include print_price price=option.price -%}</span>
 				</h3>
 			</div>
 			{% endfor %}
@@ -95,7 +95,7 @@ styles:
 		<ul class="OptionList">
 			{%- for option in page.options -%}
 			<li data-option-id="{{ option.size | slugify }}-{{ forloop.index }}">
-				<span class="Title">{{ option.size }}: {% include print_price price=option.price %}</span><br />
+				<span class="Title">{{ option.size }}: {%- include print_price price=option.price -%}</span><br />
 				<i>
 					{{ option.details | xml_escape }}
 				</i>
